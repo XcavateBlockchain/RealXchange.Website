@@ -12,7 +12,13 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        unbounded: ['Unbounded', 'sans-serif']
+        unbounded: [
+          '"Unbounded", sans-serif',
+          {
+            fontFeatureSettings: '"clig", "off"',
+            fontVariationSettings: '"liga" off'
+          }
+        ]
       },
       colors: {
         background: 'hsl(0, 0%, 95%)',
@@ -21,6 +27,9 @@ const config: Config = {
           DEFAULT: 'hsl(33, 100%, 50%)',
           light: 'hsl(0, 0%, 95%)'
         }
+      },
+      boxShadow: {
+        'nav-header': ' 0px -1px 4px 0px rgba(0, 0, 0, 0.42)'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

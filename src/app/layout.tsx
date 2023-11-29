@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import NavHeader from '@/components/layouts/nav-header';
 import '@/styles/globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
+import Footer from '@/components/layouts/footer';
 
 export const metadata: Metadata = {
   title: 'RealXchange',
@@ -13,7 +12,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className="min-h-screen antialiased">
+        <NavHeader />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
