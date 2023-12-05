@@ -16,10 +16,12 @@ export type ProjectCategory = {
 };
 
 export interface Project {
+  id: string | number;
   title: string;
   foundationName: string;
   image: string;
   category: CategoryName;
   price: string;
   noOfNFTs: number;
+  description: string;
 }
