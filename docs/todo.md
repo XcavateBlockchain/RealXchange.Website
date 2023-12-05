@@ -29,5 +29,10 @@ interface Project {
   description: string;
   funding_target: number,
   duration: Date,
+  supporting_documents: pdf | image | ptff []
 }
 ```
+
+ - NFT Activity
+ - Project Activity
+ - Mint NFT
