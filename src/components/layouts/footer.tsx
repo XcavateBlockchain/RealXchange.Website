@@ -10,10 +10,10 @@ export default function Footer() {
         <Image src={siteImage.logo} alt="logo" width={236} height={60} priority />
 
         <div className="flex items-center gap-2">
-          <Link href={'/'} className="h-[43px] w-[43px]">
+          <Link href={'/'} className="h-[43px] w-[43px] hover:text-foreground">
             <Icons.instagram />
           </Link>
-          <Link href={'/'} className="h-[43px] w-[43px]">
+          <Link href={'/'} className="h-[43px] w-[43px] hover:text-foreground">
             <Icons.linkedln />
           </Link>
         </div>

@@ -4,7 +4,8 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: 'RealXchange',
-  description: 'A sustainable web3 future',
+  description:
+    'Re-defining environmental, ecological and social project funding through an interactive NFT marketplace. ',
   mainNav: [
     {
       title: 'MARKETPLACE',
@@ -15,8 +16,8 @@ export const siteConfig = {
       href: '/how-it-works'
     },
     {
-      title: 'STAKE',
-      href: 'stake'
+      title: 'Bond',
+      href: '/bond'
     }
   ] satisfies NavItem[]
 };

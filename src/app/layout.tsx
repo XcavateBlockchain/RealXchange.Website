@@ -1,22 +1,23 @@
 import type { Metadata } from 'next';
-import NavHeader from '@/components/layouts/nav-header';
+import { siteConfig } from '@/config/site';
 import '@/styles/globals.css';
-import Footer from '@/components/layouts/footer';
 
 export const metadata: Metadata = {
-  title: 'RealXchange',
-  description:
-    'Re-defining environmental, ecological and social project funding through an interactive NFT marketplace. '
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`
+  },
+  description: siteConfig.description
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased">
-        <NavHeader />
-        {children}
-        <Footer />
-      </body>
+      <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
 }
