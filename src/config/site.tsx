@@ -13,7 +13,7 @@ export const siteConfig = {
     },
     {
       title: 'HOW IT WORKS',
-      href: '/how-it-works'
+      href: '#how-it-works'
     },
     {
       title: 'Bond',

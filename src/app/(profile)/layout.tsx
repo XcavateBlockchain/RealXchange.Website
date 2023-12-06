@@ -2,11 +2,11 @@ import { Fragment } from 'react';
 import NavHeader from '@/components/layouts/nav-header';
 import Footer from '@/components/layouts/footer';
 
-interface PageLayoutProps {
+interface ProfileLayoutProps {
   children: React.ReactNode;
 }
 
-export default function PageLayout({ children }: PageLayoutProps) {
+export default function ProfileLayout({ children }: ProfileLayoutProps) {
   return (
     <Fragment>
       <NavHeader />

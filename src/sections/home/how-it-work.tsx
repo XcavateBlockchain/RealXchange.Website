@@ -6,7 +6,7 @@ export default function HowItWork() {
   return (
     <>
       <section
-        id="how-it-work"
+        id="how-it-works"
         aria-label="index-about"
         className="container my-[144px] flex w-full  flex-col items-center justify-center gap-6"
       >

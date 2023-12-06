@@ -30,7 +30,7 @@ const category: ProjectCategory = {
 
 export function LargeNftCard({ project }: LargeNftCardProps) {
   return (
-    <div className="my-[43px] inline-flex h-[634px] w-[531px] flex-col items-start gap-7 rounded-lg bg-background px-3.5 pb-7 pt-3.5 shadow-feature-card">
+    <div className="my-[43px] inline-flex h-full w-[503px] flex-col items-start gap-7 rounded-lg bg-background px-3.5 pb-7 pt-3.5 shadow-feature-card">
       <Link href={`/project/${slugify(project.title)}`} className="w-full space-y-7">
         <div className="relative">
           <Image
@@ -45,8 +45,10 @@ export function LargeNftCard({ project }: LargeNftCardProps) {
           </div>
         </div>
 
-        <div className="flex w-full items-start justify-between gap-[13px] border-b pb-2.5">
-          <h3 className="truncate text-[1.6rem]  font-medium">{project.title}</h3>
+        <div className="flex w-full items-start justify-between gap-[23px] border-b pb-2.5">
+          <h3 className="w-[366px] truncate text-[1.6rem] font-medium">
+            {project.title}
+          </h3>
           {category[project.category].icon}
         </div>
       </Link>

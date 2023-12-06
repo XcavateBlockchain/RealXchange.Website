@@ -2,10 +2,12 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
 
-const shellVariants = cva('grid items-center gap-8', {
+const shellVariants = cva('', {
   variants: {
     variant: {
-      default: 'container pb-8 pt-6 md:px-[100px] md:py-[46px]',
+      default: 'container grid items-center gap-8 pb-8 pt-6 md:px-[100px] md:py-[46px]',
+      divided:
+        'flex flex-col gap-[124px] border-b border-foreground/[0.42] px-[100px] md:flex-row',
       centered: 'container flex h-[100dvh] max-w-2xl flex-col justify-center'
     }
   },
