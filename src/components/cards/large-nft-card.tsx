@@ -40,9 +40,9 @@ export function LargeNftCard({ project }: LargeNftCardProps) {
             height={378}
             priority
           />
-          <div className=" absolute bottom-4 right-4 flex items-center justify-center gap-2 rounded-[20px] bg-background/[0.24] px-2 py-[6px] text-[0.75rem] font-light text-primary-light/[0.64]">
-            {category[project.category].title}
-          </div>
+          <BaseButton className="text-[ 1.35125rem] absolute bottom-7 right-7 flex w-[183px] items-center justify-center gap-2 rounded-[36px] border border-background bg-primary/50 px-3.5 py-[11px] font-light text-primary-light">
+            Buy now
+          </BaseButton>
         </div>
 
         <div className="flex w-full items-start justify-between gap-[23px] border-b pb-2.5">

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BaseButton } from '../ui/base-button';
 import { Icons } from '../icons';
 import { Project, ProjectCategory } from '@/types';
-import { formatNumber, formatPrice, slugify } from '@/lib/utils';
+import { formatNumber, formatPrice } from '@/lib/utils';
 
 interface ProjectCardProps {
   project: Project;
@@ -31,7 +31,7 @@ const category: ProjectCategory = {
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <div className="flex h-[352px] w-[295px] flex-col items-start gap-4 rounded-lg bg-[##F3F3F3] px-2 pb-4 pt-2 shadow-feature-card">
-      <Link href={`/project/${slugify(project.title)}`} className="w-full space-y-3.5">
+      <Link href={`/project/${project.id}`} className="w-full space-y-3.5">
         <div className="relative">
           <Image
             src={project.image}

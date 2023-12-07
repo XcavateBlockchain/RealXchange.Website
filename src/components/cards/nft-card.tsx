@@ -30,7 +30,7 @@ const category: ProjectCategory = {
 
 export function NftCard({ project }: NftCardProps) {
   return (
-    <div className="flex h-[302] w-[253px] flex-col items-start gap-4 rounded-lg bg-[##F3F3F3] px-[7px] pb-[13px] pt-[7px] shadow-feature-card">
+    <div className="flex h-[282px] w-[240px] flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
       <Link href={`/project/${slugify(project.title)}`} className="w-full space-y-3.5">
         <div className="relative">
           <Image
@@ -40,9 +40,9 @@ export function NftCard({ project }: NftCardProps) {
             height={180}
             priority
           />
-          <div className="absolute bottom-4 right-4 flex items-center justify-center gap-2 rounded-[20px] bg-background/[0.24] px-2 py-[6px] text-[0.75rem] font-light text-primary-light/[0.64]">
-            {category[project.category].title}
-          </div>
+          <BaseButton className="absolute bottom-4 right-4 flex w-[88px] items-center justify-center gap-2 rounded-[17px] border border-background bg-primary/50 px-2 py-[6px] text-[0.75rem] font-light text-primary-light">
+            Buy now
+          </BaseButton>
         </div>
 
         <div className="flex w-full items-start justify-between gap-[13px] border-b pb-2.5">
