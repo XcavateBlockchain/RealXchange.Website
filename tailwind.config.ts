@@ -22,10 +22,23 @@ const config: Config = {
           light: 'hsl(0, 0%, 95%)'
         }
       },
+      boxShadow: {
+        'nav-header': ' 0px -1px 4px 0px rgba(0, 0, 0, 0.42)',
+        'feature-card': '0px 0.84649px 6.77189px 0px rgba(0, 0, 0, 0.10)'
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-100%)' }
+        }
+      },
+      animation: {
+        carousel: 'marquee 60s linear infinite'
       }
     }
   },
