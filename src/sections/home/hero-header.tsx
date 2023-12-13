@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { siteImage } from '@/config/image';
 import Image from 'next/image';
 
@@ -12,10 +13,12 @@ export default function Hero() {
         <h1 className="text-[3.5rem]/[4.375rem] font-bold">
           A more sustainable web3 future
         </h1>
-        <p className="text-[1.125rem]/[1.5rem] font-light">
+        <p className="pb-10 text-[1.125rem]/[1.5rem] font-light">
           Re-defining environmental, ecological and social project funding through an
           interactive NFT marketplace.{' '}
         </p>
+
+        <Button href="/marketplace">Visit the marketplace</Button>
       </div>
 
       <Image src={siteImage.hero} alt="hero-heaing" width={504} height={432} priority />

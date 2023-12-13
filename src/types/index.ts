@@ -1,3 +1,7 @@
+export interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
 export interface NavItem {
   title: string;
   href?: string;

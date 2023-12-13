@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { siteConfig } from '@/config/site';
 import '@/styles/globals.css';
+import { RootLayoutProps } from '@/types';
 
 export const metadata: Metadata = {
   title: {
@@ -9,10 +10,6 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description
 };
-
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (

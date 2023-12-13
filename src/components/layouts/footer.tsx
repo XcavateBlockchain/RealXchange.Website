@@ -5,23 +5,41 @@ import { Icons } from '../icons';
 
 export default function Footer() {
   return (
-    <footer className="container flex w-full flex-col items-center gap-6 pb-10 pt-6">
-      <section className="flex w-full items-center justify-between px-[100px]">
+    <footer className="container flex flex-col items-center gap-6 py-10">
+      <section className="flex w-full items-center justify-between px-[51px]">
         <Image src={siteImage.logo} alt="logo" width={236} height={60} priority />
-
-        <div className="flex items-center gap-2">
-          <Link href={'/'} className="h-[43px] w-[43px] hover:text-foreground">
-            <Icons.instagram />
-          </Link>
-          <Link href={'/'} className="h-[43px] w-[43px] hover:text-foreground">
-            <Icons.linkedln />
-          </Link>
-        </div>
+        <ul className="flex items-center gap-6">
+          <li>
+            <Link
+              href={''}
+              className="text-primary transition-colors duration-300 hover:text-foreground"
+            >
+              <Icons.twitterX className="h-6 w-6" />
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={''}
+              className="text-primary transition-colors duration-300 hover:text-foreground"
+            >
+              <Icons.instagram className="h-6 w-6" />
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={''}
+              className="text-primary transition-colors duration-300 hover:text-foreground"
+            >
+              <Icons.youtube className="h-6 w-6" />
+            </Link>
+          </li>
+        </ul>
       </section>
-      <section className="flex w-full items-center justify-between px-[100px]">
-        <p className="w-[370px] text-[1rem]/[1.5rem] font-light">
-          Where Sustainability Meets Web3 Innovation, Paving the Way for Greener, Smarter
-          Real Estate Investments.
+
+      <section className="flex w-full items-center justify-between px-[51px]">
+        <p className="w-[441px] text-[1rem]/[1.5rem] font-light">
+          Creating a fairer, trust-less and more sustainable real estate investment web3
+          future
         </p>
 
         <div className="space-y-2">
@@ -61,14 +79,6 @@ export default function Footer() {
                 href={'/'}
                 className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
               >
-                Contact
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={'/'}
-                className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
-              >
                 FAQ&apos;s
               </Link>
             </li>
@@ -84,5 +94,84 @@ export default function Footer() {
         </div>
       </section>
     </footer>
+    // <footer className="container flex w-full flex-col items-center gap-6 pb-10 pt-6">
+    //   <section className="flex w-full items-center justify-between px-[100px]">
+    //     <Image src={siteImage.logo} alt="logo" width={236} height={60} priority />
+
+    //     <div className="flex items-center gap-2">
+    //       <Link href={'/'} className="h-[43px] w-[43px] hover:text-foreground">
+    //         <Icons.instagram />
+    //       </Link>
+    //       <Link href={'/'} className="h-[43px] w-[43px] hover:text-foreground">
+    //         <Icons.linkedln />
+    //       </Link>
+    //     </div>
+    //   </section>
+    //   <section className="flex w-full items-center justify-between px-[100px]">
+    //     <p className="w-[370px] text-[1rem]/[1.5rem] font-light">
+    //       Where Sustainability Meets Web3 Innovation, Paving the Way for Greener, Smarter
+    //       Real Estate Investments.
+    //     </p>
+
+    //     <div className="space-y-2">
+    //       <h4 className="text-[1.25rem]/[1.8rem] font-bold capitalize">Explore</h4>
+    //       <ul className="space-y-2">
+    //         <li>
+    //           <Link
+    //             href={'/'}
+    //             className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+    //           >
+    //             Marketplace
+    //           </Link>
+    //         </li>
+    //         <li>
+    //           <Link
+    //             href={'/'}
+    //             className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+    //           >
+    //             Conect a wallet
+    //           </Link>
+    //         </li>
+    //       </ul>
+    //     </div>
+    //     <div className="space-y-2">
+    //       <h4 className="text-[1.25rem]/[1.8rem] font-bold capitalize">Links</h4>
+    //       <ul className="space-y-2">
+    //         <li>
+    //           <Link
+    //             href={'/'}
+    //             className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+    //           >
+    //             Blog
+    //           </Link>
+    //         </li>
+    //         <li>
+    //           <Link
+    //             href={'/'}
+    //             className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+    //           >
+    //             Contact
+    //           </Link>
+    //         </li>
+    //         <li>
+    //           <Link
+    //             href={'/'}
+    //             className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+    //           >
+    //             FAQ&apos;s
+    //           </Link>
+    //         </li>
+    //         <li>
+    //           <Link
+    //             href={'/'}
+    //             className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+    //           >
+    //             About Us
+    //           </Link>
+    //         </li>
+    //       </ul>
+    //     </div>
+    //   </section>
+    // </footer>
   );
 }
