@@ -1,3 +1,4 @@
+import { Icons } from '@/components/icons';
 import { NavItem } from '@/types';
 
 export type SiteConfig = typeof siteConfig;
@@ -19,5 +20,27 @@ export const siteConfig = {
       title: 'Bond',
       href: '/bond'
     }
-  ] satisfies NavItem[]
+  ] satisfies NavItem[],
+  profileNav: [
+    {
+      title: 'Create project',
+      href: '/create',
+      icon: <Icons.profile className="h-6 w-6 fill-foreground" />
+    },
+    {
+      title: 'My Profile',
+      href: '/profile',
+      icon: <Icons.profile className="h-6 w-6 fill-foreground" />
+    },
+    {
+      title: 'Settings',
+      href: '/create',
+      icon: <Icons.profile className="h-6 w-6 fill-foreground" />
+    },
+    {
+      title: 'Help',
+      href: '/create',
+      icon: <Icons.profile className="h-6 w-6 fill-foreground" />
+    }
+  ]
 };

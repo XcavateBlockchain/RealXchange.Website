@@ -18,7 +18,7 @@ export default function HowItWork() {
           Collect digital art that makes a difference.
         </p>
       </section>
-      <section className="container w-full">
+      <section className="container w-full px-[100px]">
         <div className="grid w-full grid-cols-3 gap-x-5 gap-y-10">
           <HowItWorkCard
             title="Explore Collections"

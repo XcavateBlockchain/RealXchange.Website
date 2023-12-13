@@ -1,12 +1,9 @@
 import { Fragment } from 'react';
 import NavHeader from '@/components/layouts/nav-header';
 import Footer from '@/components/layouts/footer';
+import { RootLayoutProps } from '@/types';
 
-interface PageLayoutProps {
-  children: React.ReactNode;
-}
-
-export default function PageLayout({ children }: PageLayoutProps) {
+export default function PageLayout({ children }: RootLayoutProps) {
   return (
     <Fragment>
       <NavHeader />
