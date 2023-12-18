@@ -4,6 +4,11 @@ import { twMerge } from 'tailwind-merge';
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export function shortenAddress(address: any) {
+  return address?.substring(0, 6) + '...' + address?.substring(address?.length - 4);
+}
+
 export function slugify(str: string) {
   return str
     .toLowerCase()

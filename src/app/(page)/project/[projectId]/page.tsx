@@ -20,6 +20,7 @@ const project: Project = {
   image: '/images/projects/project-six.png',
   category: 'environment',
   price: '550000',
+  price_per_nft: 1000,
   noOfNFTs: 100,
   description: ''
 };

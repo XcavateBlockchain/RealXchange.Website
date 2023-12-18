@@ -19,9 +19,13 @@ const config: Config = {
         primary: {
           DEFAULT: 'hsl(33, 100%, 50%)',
           light: 'hsl(0, 0%, 95%)'
+        },
+        accent: {
+          DEFAULT: 'hsl(202, 100%, 34%)'
         }
       },
       boxShadow: {
+        modal: '0px 0px 16px 0px rgba(0, 0, 0, 0.40)',
         'nav-header': ' 0px -1px 4px 0px rgba(0, 0, 0, 0.42)',
         'feature-card': '0px 0.84649px 6.77189px 0px rgba(0, 0, 0, 0.10)'
       },

@@ -26,6 +26,7 @@ export interface Project {
   image: string;
   category: CategoryName;
   price: string;
+  price_per_nft?: number;
   noOfNFTs: number;
   description: string;
 }

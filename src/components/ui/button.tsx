@@ -29,7 +29,10 @@ export interface ButtonProps
 
 const Button = ({ variant, size, fullWidth, className, ...props }: ButtonProps) => {
   return (
-    <BaseButton className={cn(buttonVariants({ variant, size, className }))} {...props} />
+    <BaseButton
+      className={cn(buttonVariants({ variant, size, fullWidth, className }))}
+      {...props}
+    />
   );
 };
 
