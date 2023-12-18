@@ -18,7 +18,7 @@ export default async function generateImages({
   try {
     const apiCalls = Array.from({ length: numberOfImages }, () => {
       return openai.images.generate({
-        prompt: `Generate a prompt based on the following phrase: "${phrase}". Use the following keyword an anchor: ${keyword}. The image should have a main colour of: ${colour}.`,
+        prompt: `Generate an image based on the following phrase: "${phrase}". Use the following keyword as an anchor: ${keyword}. The image should have a main colour of: ${colour}.`,
         n: 1,
         model: 'dall-e-3'
       });

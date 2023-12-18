@@ -35,6 +35,7 @@ export default function NavHeader() {
 
     console.log(allAccounts);
 
+    // FIX: Need to handle if the person has more than one account.
     if (allAccounts.length === 1) {
       setIsConnected(true);
       setSelectedAccount(allAccounts[0]);
