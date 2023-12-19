@@ -36,7 +36,7 @@ export default function ModalContainer({
           </Transition.Child>
 
           <div className="fixed inset-0 top-[156px] overflow-y-auto">
-            <div className="flex items-start justify-center min-h-full p-4 te md:p-0">
+            <div className="te flex min-h-full items-start justify-center p-4 md:p-0">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -47,7 +47,7 @@ export default function ModalContainer({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="inline-flex h-full w-full max-w-[475px] transform flex-col gap-4 overflow-hidden rounded-lg   bg-background px-6 py-[29px] align-middle shadow-modal  transition-all">
-                  <header className="flex items-center justify-between w-full">
+                  <header className="flex w-full items-center justify-between">
                     <Dialog.Title as="h3" className="text-[1rem]/[1.5rem] font-normal">
                       {title}
                     </Dialog.Title>
@@ -55,7 +55,7 @@ export default function ModalContainer({
                       <Icons.closeSquare className="h-6 w-6 stroke-foreground p-[2.5px]" />
                     </BaseButton>
                   </header>
-                  <main className="w-full h-full">{children}</main>
+                  <main className="h-full w-full">{children}</main>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

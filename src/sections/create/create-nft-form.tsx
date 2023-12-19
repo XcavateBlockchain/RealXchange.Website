@@ -80,7 +80,7 @@ export function CreateNftForm() {
                 />
                 <BaseButton
                   onClick={() => handleRemoveVariant(index)}
-                  className="text-accent-error flex justify-end text-[1rem]/[1.5rem]"
+                  className="flex justify-end text-[1rem]/[1.5rem] text-accent-error"
                 >
                   Remove variant
                 </BaseButton>

@@ -137,20 +137,20 @@ const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
         </div>
         <div className="flex items-center justify-between px-[80px]">
           <BaseButton onClick={incrementValue}>
-            <Icons.addSquare className="w-8 h-8 fill-foreground" />
+            <Icons.addSquare className="h-8 w-8 fill-foreground" />
           </BaseButton>
           <span className="text-[1rem]/[1.5rem] font-semibold">{value}</span>
           <BaseButton onClick={decrementValue}>
-            <Icons.removeSquare className="w-8 h-8 fill-foreground" />
+            <Icons.removeSquare className="h-8 w-8 fill-foreground" />
           </BaseButton>
         </div>
-        <div className="flex flex-col items-start w-full gap-2">
+        <div className="flex w-full flex-col items-start gap-2">
           <dl className="flex w-full items-center justify-between text-[1rem]/[1.5rem]">
             <dt>To pay</dt>
-            <dd>{formatPrice(value * project?.price_per_nft)}</dd>
+            <dd>{formatPrice(value * (project?.price_per_nft || 0))}</dd>
           </dl>
           <p className="text-[0.75rem]/[1.5rem] font-light">
-            Price for 1 NFT = {formatPrice(project.price_per_nft)}
+            Price for 1 NFT = {formatPrice(project?.price_per_nft || 0)}
           </p>
         </div>
         <Button variant="primary" fullWidth>
