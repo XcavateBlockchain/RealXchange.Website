@@ -3,6 +3,8 @@ import { SectionHeader, SectionTitle } from '@/components/section-header';
 import { Shell } from '@/components/shells/shell';
 import { Button } from '@/components/ui/button';
 import { siteImage } from '@/config/image';
+import PageContextProvider from '@/context/page-contex';
+import { CreateNftForm } from '@/sections/create/create-nft-form';
 import { CreateProjectForm } from '@/sections/create/create-project-form';
 import Image from 'next/image';
 
@@ -22,7 +24,11 @@ export default function Page() {
           priority
         />
       </div>
-      <section className="flex flex-col gap-6 border-l border-foreground py-[90px] pl-[84px]">
+      <PageContextProvider index="create-project">
+        <CreateProjectForm />
+        <CreateNftForm />
+      </PageContextProvider>
+      {/* <section className="flex flex-col gap-6 border-l border-foreground py-[90px] pl-[84px]">
         <SectionHeader>
           <SectionTitle size={'lg'}>Create project</SectionTitle>
           <div className="flex items-center space-x-2">
@@ -31,7 +37,7 @@ export default function Page() {
           </div>
         </SectionHeader>
         <CreateProjectForm />
-      </section>
+      </section> */}
     </Shell>
   );
 }

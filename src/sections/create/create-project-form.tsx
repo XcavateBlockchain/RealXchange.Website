@@ -1,19 +1,16 @@
 'use client';
 
+import { SectionHeader, SectionTitle } from '@/components/section-header';
 import { Button } from '@/components/ui/button';
+import FileInput from '@/components/ui/file-input';
 import Form, { useZodForm } from '@/components/ui/form';
 import Input from '@/components/ui/input';
 import SelectInput from '@/components/ui/select';
 import Textarea from '@/components/ui/text-area';
-import { object, string } from 'zod';
-
-const createProjectSchema = object({
-  name: string().min(5),
-  category: string(),
-  location: string(),
-  description: string().min(20),
-  target: string()
-});
+import { usePageContext } from '@/context/page-contex';
+import { createProjectSchema } from '@/lib/zod';
+import { Fragment } from 'react';
+import { number, object, string } from 'zod';
 
 const categories = [
   {
@@ -33,52 +30,106 @@ const categories = [
     value: 'social'
   }
 ];
+const lengths = [
+  {
+    name: '3 Month',
+    value: 3
+  },
+  {
+    name: '4 Month',
+    value: 4
+  },
+  {
+    name: '6 Month',
+    value: 6
+  },
+  {
+    name: '9 Month',
+    value: 9
+  }
+];
 
 export function CreateProjectForm() {
+  const context = usePageContext();
+
+  const onCreateHandler = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    context?.setPageValues({ page: 'add-nft' });
+  };
+
   const form = useZodForm({
     schema: createProjectSchema
   });
 
   return (
-    <Form form={form} onSubmit={form.handleSubmit(data => console.log(data))}>
-      <Input
-        label="Project name"
-        htmlFor="name"
-        type="text"
-        placeholder="e.g(text)"
-        {...form.register('name')}
-      />
-      <SelectInput
-        label="Project category"
-        htmlFor="category"
-        options={categories}
-        {...form.register('category')}
-      />
-      <Input
-        label="Project location"
-        htmlFor="name"
-        type="text"
-        placeholder="London"
-        {...form.register('location', { required: true })}
-      />
-      <Textarea
-        label="Project description"
-        htmlFor="description"
-        placeholder="Text"
-        rows={3}
-        {...form.register('description')}
-      />
-      <Input
-        label="Funding target"
-        htmlFor="name"
-        type="text"
-        placeholder="$0.00"
-        {...form.register('target', { required: true })}
-      />
+    <Fragment>
+      {context?.page === 'create-project' ? (
+        <section className="flex flex-col gap-6 border-l border-foreground py-[90px] pl-[84px]">
+          <SectionHeader>
+            <SectionTitle size={'lg'}>Create project</SectionTitle>
+            <div className="flex items-center space-x-2">
+              <dt className="text-[0.75rem] font-light text-[0.6]"> Created by:</dt>
+              <dd className="text-[1rem]/[1.5rem]">@Trillion_Treesfoundation</dd>
+            </div>
+          </SectionHeader>
+          <Form form={form} onSubmit={form.handleSubmit(data => console.log(data))}>
+            <Input
+              label="Project name"
+              htmlFor="name"
+              type="text"
+              placeholder="e.g(text)"
+              {...form.register('name')}
+            />
+            <SelectInput
+              label="Project category"
+              htmlFor="category"
+              options={categories}
+              {...form.register('category')}
+            />
+            <Input
+              label="Project location"
+              htmlFor="name"
+              type="text"
+              placeholder="London"
+              {...form.register('location', { required: true })}
+            />
+            <Textarea
+              label="Project description"
+              htmlFor="description"
+              placeholder="Text"
+              rows={3}
+              {...form.register('description')}
+            />
 
-      <Button type="submit" variant={'primary'} className="my-5 w-full">
-        Continue
-      </Button>
-    </Form>
+            <FileInput />
+
+            <Input
+              label="Funding target"
+              htmlFor="name"
+              type="text"
+              placeholder="$0.00"
+              {...form.register('target', { required: true })}
+            />
+
+            <SelectInput
+              label="Project length"
+              htmlFor="length"
+              options={lengths}
+              {...form.register('length')}
+            />
+
+            <Button
+              type="submit"
+              variant={'primary'}
+              className="my-5 w-full"
+              onClick={onCreateHandler}
+              disabled={form.formState.isSubmitting}
+            >
+              Continue
+            </Button>
+          </Form>
+        </section>
+      ) : null}
+    </Fragment>
   );
 }

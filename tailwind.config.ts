@@ -21,11 +21,13 @@ const config: Config = {
           light: 'hsl(0, 0%, 95%)'
         },
         accent: {
-          DEFAULT: 'hsl(202, 100%, 34%)'
+          DEFAULT: 'hsl(202, 100%, 34%)',
+          error: 'hsl(353, 74%, 62%)'
         }
       },
       boxShadow: {
         modal: '0px 0px 16px 0px rgba(0, 0, 0, 0.40)',
+        disclosure: ' 0px 0px 8px 0px rgba(78, 78, 78, 0.24)',
         'nav-header': ' 0px -1px 4px 0px rgba(0, 0, 0, 0.42)',
         'feature-card': '0px 0.84649px 6.77189px 0px rgba(0, 0, 0, 0.10)'
       },

@@ -27,3 +27,5 @@ export { default as Profile } from './profile';
 export { default as CloseSquare } from './close-square';
 export { default as RemoveSquare } from './remove-square';
 export { default as AddSquare } from './add-square';
+export { default as ArrowUp } from './arrow-up';
+export { default as ArrowDown } from './arrow-down';

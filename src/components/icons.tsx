@@ -1,5 +1,7 @@
 import {
   AddSquare,
+  ArrowDown,
+  ArrowUp,
   Back,
   CloseSquare,
   Discovery,
@@ -43,5 +45,7 @@ export const Icons = {
   profile: Profile,
   closeSquare: CloseSquare,
   removeSquare: RemoveSquare,
-  addSquare: AddSquare
+  addSquare: AddSquare,
+  ArrowDown,
+  ArrowUp
 };
