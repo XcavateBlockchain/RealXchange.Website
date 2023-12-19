@@ -25,11 +25,13 @@ export default function NavHeader() {
   async function connectWallet() {
     const { web3Enable, web3Accounts } = await import('@polkadot/extension-dapp');
 
-    const extensions = web3Enable('RealXchange');
+    const extensions = await web3Enable('RealXchange');
 
     if (!extensions) {
       throw Error('No Extension Found');
     }
+
+    console.log(extensions);
 
     const allAccounts = await web3Accounts();
 

@@ -7,6 +7,7 @@ import SelectInput from '@/components/ui/select';
 import Textarea from '@/components/ui/text-area';
 import { number, object, string } from 'zod';
 import generateImages from '@/lib/image_generation';
+import { listProject } from '@/lib/extrinsics';
 
 console.log(process.env.NEXT_PUBLIC_OPENAI_API_KEY);
 
@@ -15,6 +16,7 @@ const createProjectSchema = object({
   category: string(),
   location: string(),
   description: string().min(20),
+  projectLength: string(),
   target: string(),
   nftKeyword: string(),
   nftColour: string(),
@@ -47,26 +49,39 @@ export function CreateProjectForm() {
     schema: createProjectSchema
   });
 
-  const handleGenerateArtwork = async ({
-    nftKeyword,
-    nftColour,
-    nftDescription
-  }: {
-    nftKeyword: string;
-    nftColour: string;
-    nftDescription: string;
-  }) => {
-    const res = await generateImages({
-      keyword: nftKeyword,
-      colour: nftColour,
-      phrase: nftDescription,
-      numberOfImages: 1
-    });
-    console.log(JSON.stringify(res, null, 2));
+  // const handleGenerateArtwork = async ({
+  //   nftKeyword,
+  //   nftColour,
+  //   nftDescription
+  // }: {
+  //   nftKeyword: string;
+  //   nftColour: string;
+  //   nftDescription: string;
+  // }) => {
+  //   const res = await generateImages({
+  //     keyword: nftKeyword,
+  //     colour: nftColour,
+  //     phrase: nftDescription,
+  //     numberOfImages: 1
+  //   });
+  //   console.log(JSON.stringify(res, null, 2));
+  // };
+
+  const submitListProject = async (data: any) => {
+    const projectData = {
+      priceAndAmount: [
+        { price: data.nftUnitPrice, amount: data.nftCollectionTotalNumber } // Each NFT has it's own price and amount to be created
+      ],
+      metadata: [data.nftDescription], // should be the Crust ID instead of description
+      duration: data.projectLength,
+      fundingTarget: data.target,
+      projectMetadata: '0x' + data.description.toString(16)
+    };
+    await listProject('5HGjWAeFDfFCWPsjFQdVV2Msvz2XtMktvgocEZcCj68kUMaw', projectData); // The address here should come from whatever address they select to use when they click connect wallet
   };
 
   return (
-    <Form form={form} onSubmit={form.handleSubmit(data => console.log(data))}>
+    <Form form={form} onSubmit={form.handleSubmit(data => submitListProject(data))}>
       <Input
         label="Project name"
         htmlFor="name"
@@ -95,8 +110,15 @@ export function CreateProjectForm() {
         {...form.register('description')}
       />
       <Input
+        label="Project length (In Months)"
+        htmlFor="projectLength"
+        type="text"
+        // placeholder="$0.00"
+        {...form.register('projectLength', { required: true })}
+      />
+      <Input
         label="Funding target"
-        htmlFor="name"
+        htmlFor="target"
         type="text"
         placeholder="$0.00"
         {...form.register('target', { required: true })}
@@ -138,16 +160,16 @@ export function CreateProjectForm() {
         {...form.register('nftUnitPrice', { required: true })}
       />
 
-      <Button
+      {/* <Button
         className="my-5 w-full"
         onClick={() => handleGenerateArtwork(form.getValues())}
       >
         Generate Artwork
-      </Button>
-
-      {/* <Button type="submit" variant={'primary'} className="my-5 w-full">
-        Continue
       </Button> */}
+
+      <Button type="submit" variant={'primary'} className="my-5 w-full">
+        Continue
+      </Button>
     </Form>
   );
 }

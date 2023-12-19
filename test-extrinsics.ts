@@ -40,8 +40,8 @@ async function main() {
       }
     });
 
-  const charlie = keyring.addFromUri(
-    'bottom drive obey lake curtain smoke basket hold race lonely fit walk//Charlie'
+  const bob = keyring.addFromUri(
+    'bottom drive obey lake curtain smoke basket hold race lonely fit walk//Bob'
   );
   const unsubBuy = await api.tx.communityProject
     .buyNft(
@@ -49,7 +49,7 @@ async function main() {
       1, // nft type
       1 // number of NFTs to buy
     )
-    .signAndSend(eve, (result: ExtrinsicResult) => {
+    .signAndSend(bob, (result: ExtrinsicResult) => {
       console.log(`Current status is ${result.status}`);
 
       if (result.status.isInBlock) {
