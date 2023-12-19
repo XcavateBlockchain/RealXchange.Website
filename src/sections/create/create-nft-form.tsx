@@ -8,16 +8,27 @@ import Form, { useZodForm } from '@/components/ui/form';
 import Input from '@/components/ui/input';
 import { usePageContext } from '@/context/page-contex';
 import { addNFTSchema } from '@/lib/zod';
-import { Fragment, useCallback } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import { useFieldArray } from 'react-hook-form';
+import { PreviewArtLarge } from './preview-art-large';
+import { z } from 'zod';
 
 export function CreateNftForm() {
   const context = usePageContext();
+  const [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   const form = useZodForm({
     schema: addNFTSchema,
     defaultValues: {
-      nfts: [{ keyword: 'any', color: 'black', description: 'your text' }]
+      nfts: [{ keyword: '', color: '', description: '', supply: '', price: '' }]
     }
   });
 
@@ -34,8 +45,12 @@ export function CreateNftForm() {
   );
 
   const handleAddVariant = useCallback(() => {
-    append({ keyword: '', color: '', description: '' });
+    append({ keyword: '', color: '', description: '', supply: '', price: '' });
   }, [append]);
+
+  const onSubmit = (data: z.infer<typeof addNFTSchema>) => {
+    console.log(data);
+  };
 
   return (
     <Fragment>
@@ -48,7 +63,7 @@ export function CreateNftForm() {
               <dd className="text-[1rem]/[1.5rem]">@Trillion_Treesfoundation</dd>
             </div>
           </SectionHeader>
-          <Form form={form} onSubmit={form.handleSubmit(data => console.log(data))}>
+          <Form form={form} onSubmit={form.handleSubmit(onSubmit)}>
             {fields.map((field, index) => (
               <Disclosure
                 key={field.id}
@@ -78,9 +93,25 @@ export function CreateNftForm() {
                   placeholder="e.g(text)"
                   {...form.register(`nfts.${index}.description`)}
                 />
+                <div className="grid grid-cols-2 gap-3">
+                  <Input
+                    label="Supply"
+                    htmlFor="supply"
+                    type="text"
+                    placeholder="E.g 100"
+                    {...form.register(`nfts.${index}.supply`)}
+                  />
+                  <Input
+                    label="Price per NFTs"
+                    htmlFor="price"
+                    type="text"
+                    placeholder="E.g $2,000"
+                    {...form.register(`nfts.${index}.price`)}
+                  />
+                </div>
                 <BaseButton
                   onClick={() => handleRemoveVariant(index)}
-                  className="flex justify-end text-[1rem]/[1.5rem] text-accent-error"
+                  className="text-accent-error flex justify-end text-[1rem]/[1.5rem]"
                 >
                   Remove variant
                 </BaseButton>
@@ -96,13 +127,15 @@ export function CreateNftForm() {
             <Button
               type="submit"
               className="my-5 w-full"
-              disabled={form.formState.isSubmitting}
+              // disabled={form.formState.isSubmitting}
+              // onClick={openModal}
             >
               Preview artwork
             </Button>
           </Form>
         </section>
       ) : null}
+      <PreviewArtLarge open={isOpen} close={closeModal} />
     </Fragment>
   );
 }
