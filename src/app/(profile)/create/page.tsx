@@ -28,16 +28,6 @@ export default function Page() {
         <CreateProjectForm />
         <CreateNftForm />
       </PageContextProvider>
-      {/* <section className="flex flex-col gap-6 border-l border-foreground py-[90px] pl-[84px]">
-        <SectionHeader>
-          <SectionTitle size={'lg'}>Create project</SectionTitle>
-          <div className="flex items-center space-x-2">
-            <dt className="text-[0.75rem] font-light text-[0.6]"> Created by:</dt>
-            <dd className="text-[1rem]/[1.5rem]">@Trillion_Treesfoundation</dd>
-          </div>
-        </SectionHeader>
-        <CreateProjectForm />
-      </section> */}
     </Shell>
   );
 }

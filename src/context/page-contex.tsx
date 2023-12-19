@@ -18,11 +18,12 @@ export function usePageContext() {
   return useContext(PageContext);
 }
 
-export interface PageProps extends React.PropsWithChildren {
+export interface PageProps {
   /**
    * The default value.
    */
   index: string;
+  children?: React.ReactNode;
 }
 
 export default function PageContextProvider({ index, children }: PageProps) {
