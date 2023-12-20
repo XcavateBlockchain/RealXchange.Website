@@ -23,7 +23,8 @@ export default async function generateImages({
         model: 'dall-e-3'
       });
     });
-    const results = await Promise.allSettled(apiCalls);
+    const results = await Promise.all(apiCalls);
+    console.log(results);
     return results;
   } catch (e) {
     console.log(e);
