@@ -68,6 +68,13 @@ export function CreateProjectForm() {
   // };
 
   const submitListProject = async (data: any) => {
+    const storedAddress = localStorage.getItem('selectedWalletAddress');
+
+    if (!storedAddress) {
+      alert('Please connect your wallet to submit the project.');
+      return;
+    }
+
     const projectData = {
       priceAndAmount: [
         { price: data.nftUnitPrice, amount: data.nftCollectionTotalNumber } // Each NFT has it's own price and amount to be created
@@ -77,7 +84,7 @@ export function CreateProjectForm() {
       fundingTarget: data.target,
       projectMetadata: '0x' + data.description.toString(16)
     };
-    await listProject('5HGjWAeFDfFCWPsjFQdVV2Msvz2XtMktvgocEZcCj68kUMaw', projectData); // The address here should come from whatever address they select to use when they click connect wallet
+    await listProject(storedAddress, projectData);
   };
 
   return (
