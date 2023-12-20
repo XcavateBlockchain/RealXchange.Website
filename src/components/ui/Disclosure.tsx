@@ -4,11 +4,12 @@
 import { useCallback, useId, useMemo, useState } from 'react';
 import { Icons } from '../icons';
 
-interface DisclosureProp extends React.PropsWithChildren {
+interface DisclosureProp {
   title: string;
   collapseOpen?: boolean;
   /** set element-type for a custom-tag */
   as?: React.ElementType;
+  children: React.ReactNode;
 }
 
 export const Disclosure = ({
