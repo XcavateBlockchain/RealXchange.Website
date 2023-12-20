@@ -4,52 +4,48 @@ import { siteImage } from '@/config/image';
 import Image from 'next/image';
 import Link from 'next/link';
 import MainNav from './main-nav';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ConnectedWalletButton from './connected-wallet-button';
-import dynamic from 'next/dynamic';
 
-import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
-// const web3Accounts = dynamic(() => import('@polkadot/extension-dapp'), {
-//   ssr: false
-// });
-// const web3Enable = dynamic(() => import('@polkadot/extension-dapp'), {
-//   ssr: false
-// });
+import { web3Enable, web3Accounts } from '@polkadot/extension-dapp';
 
 export default function NavHeader() {
-  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [walletAddresses, setWalletAddresses] = useState<string[]>([]);
+  const [showWalletSelector, setShowWalletSelector] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState('');
 
-  const [account, setAccount] = useState<InjectedAccountWithMeta[]>([]);
-  const [selectedAccount, setSelectedAccount] = useState<InjectedAccountWithMeta>();
-
-  async function connectWallet() {
-    const { web3Enable, web3Accounts } = await import('@polkadot/extension-dapp');
-
-    const extensions = await web3Enable('RealXchange');
-
-    if (!extensions) {
-      throw Error('No Extension Found');
+  const fetchWalletAddresses = async () => {
+    const extensions = await web3Enable('Your App Name');
+    if (extensions.length === 0) {
+      alert('No wallet extensions found!');
+      return;
     }
 
-    console.log(extensions);
+    const accounts = await web3Accounts();
+    setWalletAddresses(accounts.map(account => account.address));
 
-    const allAccounts = await web3Accounts();
-
-    console.log(allAccounts);
-
-    // FIX: Need to handle if the person has more than one account.
-    if (allAccounts.length === 1) {
-      setIsConnected(true);
-      setSelectedAccount(allAccounts[0]);
+    const localStorageAddress = localStorage.getItem('selectedWalletAddress');
+    if (
+      localStorageAddress &&
+      accounts.some(account => account.address === localStorageAddress)
+    ) {
+      setSelectedAddress(localStorageAddress);
     }
-  }
+  };
 
-  function onConnect() {
-    setIsConnected(true);
-  }
+  const disconnectWallet = () => {
+    setSelectedAddress('');
+    localStorage.removeItem('selectedWalletAddress');
+  };
 
-  const logOut = () => {
-    setIsConnected(false);
+  useEffect(() => {
+    fetchWalletAddresses();
+  }, []);
+
+  const handleSelectAddress = (address: string) => {
+    setSelectedAddress(address);
+    localStorage.setItem('selectedWalletAddress', address);
+    setShowWalletSelector(false);
   };
 
   return (
@@ -60,17 +56,53 @@ export default function NavHeader() {
         </Link>
         <MainNav />
 
-        {isConnected ? (
-          <ConnectedWalletButton onClick={logOut} address={selectedAccount?.address!} />
+        {selectedAddress ? (
+          <ConnectedWalletButton onClick={disconnectWallet} address={selectedAddress} />
         ) : (
           <button
+            onClick={() => setShowWalletSelector(!showWalletSelector)}
             className="flex items-center gap-2.5 rounded-3xl bg-primary px-4 py-2 text-[0.875rem]/[1.25rem] text-primary-light duration-700 hover:bg-primary/90"
-            onClick={connectWallet}
           >
-            Connect wallet
+            Connect Wallet
           </button>
+        )}
+        {showWalletSelector && (
+          <WalletSelector
+            walletAddresses={walletAddresses}
+            onSelect={handleSelectAddress}
+          />
         )}
       </nav>
     </header>
   );
 }
+
+interface WalletSelectorProps {
+  walletAddresses: string[];
+  onSelect: (address: string) => void;
+}
+
+const WalletSelector = ({ walletAddresses, onSelect }: WalletSelectorProps) => {
+  const [selectedAddress, setSelectedAddress] = useState('');
+
+  const handleAddressChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const address = event.target.value;
+    onSelect(address);
+  };
+
+  return (
+    <div className="mt-2">
+      <select
+        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+        onChange={handleAddressChange}
+      >
+        <option value="">Select a wallet</option>
+        {walletAddresses.map((address, index) => (
+          <option key={index} value={address}>
+            {address}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
