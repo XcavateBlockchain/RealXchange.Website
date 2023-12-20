@@ -6,7 +6,7 @@ import { useFormContext } from 'react-hook-form';
 export interface SelectProps extends React.ComponentProps<'select'> {
   label: string;
   htmlFor?: string;
-  options: { name: string; value: string }[];
+  options: { name: string; value: any }[];
 }
 
 export function FieldError({ name }: { name?: string }) {

@@ -1,6 +1,7 @@
 import Hero from '@/sections/home/hero-header';
 import Features from '@/sections/home/features';
 import HowItWork from '@/sections/home/how-it-work';
+import { PlanetFundingSection } from '@/sections/home/planet-funding';
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <Features />
       <HowItWork />
+      <PlanetFundingSection />
     </main>
   );
 }

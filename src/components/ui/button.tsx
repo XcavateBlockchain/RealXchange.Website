@@ -5,7 +5,8 @@ import { cn } from '@/lib/utils';
 const buttonVariants = cva('flex items-center justify-center gap-5 rounded-3xl', {
   variants: {
     variant: {
-      default: 'bg-foreground text-primary-light hover:bg-foreground/90 font-medium',
+      default:
+        'bg-foreground text-primary-light hover:bg-foreground/90 font-medium disabled:opacity-50 disabled:pointer-events-none transition-colors',
       primary: 'bg-primary text-primary-light hover:bg-primary/90 font-medium',
       plain: 'gap-2 hover:border-b duration-300 hover:border-foreground/80 rounded-none'
     },
@@ -29,7 +30,10 @@ export interface ButtonProps
 
 const Button = ({ variant, size, fullWidth, className, ...props }: ButtonProps) => {
   return (
-    <BaseButton className={cn(buttonVariants({ variant, size, className }))} {...props} />
+    <BaseButton
+      className={cn(buttonVariants({ variant, size, fullWidth, className }))}
+      {...props}
+    />
   );
 };
 

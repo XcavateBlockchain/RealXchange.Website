@@ -70,7 +70,7 @@ export default function HowItWork() {
         </div>
       </section>
 
-      <section
+      {/* <section
         id="project-funding"
         aria-label="index-funding"
         className="my-[100px] inline-flex flex-col items-center justify-center gap-10 px-[100px]"
@@ -86,7 +86,7 @@ export default function HowItWork() {
           </p>
         </div>
         <Button>Learn more</Button>
-      </section>
+      </section> */}
     </>
   );
 }
