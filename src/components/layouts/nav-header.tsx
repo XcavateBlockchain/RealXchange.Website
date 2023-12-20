@@ -4,19 +4,31 @@ import { siteImage } from '@/config/image';
 import Image from 'next/image';
 import Link from 'next/link';
 import MainNav from './main-nav';
-import { useState } from 'react';
+import { Types, getExtensions, watchExtensions } from 'kilt-extension-api';
+import { useCallback, useState } from 'react';
+// import ConnectedWalletButton from './connected-wallet-button';
+// import { Session } from '@/lib/session';
+import ConnectWalletButton from './connect-wallet-button';
 import ConnectedWalletButton from './connected-wallet-button';
 
 export default function NavHeader() {
   const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [session, setSession] = useState();
+  const [extensions, setExtensions] = useState<
+    Types.InjectedWindowProvider<Types.PubSubSessionV1 | Types.PubSubSessionV2>[]
+  >([]);
 
-  function onConnect() {
-    setIsConnected(true);
-  }
+  const handleConnect = useCallback((session: any) => {
+    setSession(session);
+  }, []);
 
   const logOut = () => {
     setIsConnected(false);
   };
+
+  watchExtensions(extensions => {
+    setExtensions(getExtensions());
+  });
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background shadow-nav-header">
@@ -26,15 +38,12 @@ export default function NavHeader() {
         </Link>
         <MainNav />
 
-        {isConnected ? (
-          <ConnectedWalletButton onClick={logOut} />
+        {/* <ConnectWalletButton /> */}
+
+        {!session ? (
+          <ConnectWalletButton onConnect={handleConnect} />
         ) : (
-          <button
-            className="flex items-center gap-2.5 rounded-3xl bg-primary px-4 py-2 text-[0.875rem]/[1.25rem] text-primary-light duration-700 hover:bg-primary/90"
-            onClick={onConnect}
-          >
-            Connect wallet
-          </button>
+          <ConnectedWalletButton onClick={logOut} />
         )}
       </nav>
     </header>
