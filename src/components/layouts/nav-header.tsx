@@ -4,12 +4,15 @@ import { siteImage } from '@/config/image';
 import Image from 'next/image';
 import Link from 'next/link';
 import MainNav from './main-nav';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import ConnectedWalletButton from './connected-wallet-button';
 
 import { web3Enable, web3Accounts } from '@polkadot/extension-dapp';
+import { useSporranContext } from '@/context/sporran-context';
+import ConnectKilt from './connect-kilt';
 
 export default function NavHeader() {
+  const { kilt } = useSporranContext();
   const [walletAddresses, setWalletAddresses] = useState<string[]>([]);
   const [showWalletSelector, setShowWalletSelector] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState('');
@@ -20,6 +23,10 @@ export default function NavHeader() {
       alert('No wallet extensions found!');
       return;
     }
+
+    extensions.push(kilt);
+
+    console.log(extensions);
 
     const accounts = await web3Accounts();
     setWalletAddresses(accounts.map(account => account.address));
