@@ -1,12 +1,7 @@
 'use client';
 
-import {
-  initializeKiltExtensionAPI,
-  watchExtensions,
-  getExtensions,
-  Types
-} from 'kilt-extension-api';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { initializeKiltExtensionAPI } from '@kiltprotocol/kilt-extension-api';
+import { createContext, useContext } from 'react';
 
 if (typeof window !== 'undefined') {
   initializeKiltExtensionAPI();

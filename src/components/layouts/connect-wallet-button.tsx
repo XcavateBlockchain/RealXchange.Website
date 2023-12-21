@@ -2,7 +2,12 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { exceptionToError } from '@/lib/exceptionToError';
-import { Types, getExtensions } from 'kilt-extension-api';
+import { getExtensions } from '@kiltprotocol/kilt-extension-api';
+import {
+  InjectedWindowProvider,
+  PubSubSessionV1,
+  PubSubSessionV2
+} from '@kiltprotocol/kilt-extension-api/types';
 import { getSession } from '@/lib/session';
 
 type FlowError = 'closed' | 'unauthorized' | 'unknown';
@@ -15,7 +20,7 @@ export default function ConnectWalletButton({
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<FlowError>();
   const [extensions, setExtensions] = useState<
-    Types.InjectedWindowProvider<Types.PubSubSessionV1 | Types.PubSubSessionV2>[]
+    InjectedWindowProvider<PubSubSessionV1 | PubSubSessionV2>[]
   >([]);
 
   useEffect(() => {
@@ -46,7 +51,7 @@ export default function ConnectWalletButton({
         setProcessing(false);
       }
     },
-    [extensions, onConnect]
+    [onConnect]
   );
 
   let extension = extensions.find(ext => ext);

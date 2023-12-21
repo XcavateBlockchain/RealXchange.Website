@@ -4,18 +4,23 @@ import { siteImage } from '@/config/image';
 import Image from 'next/image';
 import Link from 'next/link';
 import MainNav from './main-nav';
-import { Types, getExtensions, watchExtensions } from 'kilt-extension-api';
+import { getExtensions, watchExtensions } from '@kiltprotocol/kilt-extension-api';
 import { useCallback, useState } from 'react';
 // import ConnectedWalletButton from './connected-wallet-button';
 // import { Session } from '@/lib/session';
 import ConnectWalletButton from './connect-wallet-button';
 import ConnectedWalletButton from './connected-wallet-button';
+import {
+  InjectedWindowProvider,
+  PubSubSessionV1,
+  PubSubSessionV2
+} from '@kiltprotocol/kilt-extension-api/types';
 
 export default function NavHeader() {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [session, setSession] = useState();
   const [extensions, setExtensions] = useState<
-    Types.InjectedWindowProvider<Types.PubSubSessionV1 | Types.PubSubSessionV2>[]
+    InjectedWindowProvider<PubSubSessionV1 | PubSubSessionV2>[]
   >([]);
 
   const handleConnect = useCallback((session: any) => {
