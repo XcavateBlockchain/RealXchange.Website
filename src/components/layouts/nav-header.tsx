@@ -6,7 +6,7 @@ import Link from 'next/link';
 import MainNav from './main-nav';
 import { useState, useEffect } from 'react';
 import ConnectedWalletButton from './connected-wallet-button';
-
+import ConnectKiltButton from './connect-kilt-button';
 // import { web3Enable, web3Accounts } from '@polkadot/extension-dapp';
 
 export default function NavHeader() {
@@ -73,6 +73,7 @@ export default function NavHeader() {
             onSelect={handleSelectAddress}
           />
         )}
+        <ConnectKiltButton />
       </nav>
     </header>
   );

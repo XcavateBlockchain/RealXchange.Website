@@ -17,6 +17,8 @@ export function CreateNftForm() {
   const context = usePageContext();
   const [isOpen, setIsOpen] = useState(false);
 
+  console.log(context?.project); // get project info from context
+
   function closeModal() {
     setIsOpen(false);
   }
@@ -111,7 +113,7 @@ export function CreateNftForm() {
                 </div>
                 <BaseButton
                   onClick={() => handleRemoveVariant(index)}
-                  className="text-accent-error flex justify-end text-[1rem]/[1.5rem]"
+                  className="flex justify-end text-[1rem]/[1.5rem] text-accent-error"
                 >
                   Remove variant
                 </BaseButton>
@@ -128,7 +130,7 @@ export function CreateNftForm() {
               type="submit"
               className="my-5 w-full"
               // disabled={form.formState.isSubmitting}
-              // onClick={openModal}
+              // onClick={openModal}  // show preview modal
             >
               Preview artwork
             </Button>

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import Image from 'next/image';
@@ -35,13 +36,14 @@ export function NftCard({ project }: NftCardProps) {
     <div className="flex h-full w-full flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
       <div className="w-full space-y-3.5">
         <div className="relative">
-          <Image
+          {/* <Image
             src={project.image}
             alt={project.title}
             width={503}
             height={504}
             priority
-          />
+          /> */}
+          <img src={project.image} alt={project.title} className="h-[504px] w-[503px]" />
           {/* buy now button */}
           <BaseButton
             className="absolute bottom-4 right-[80px] flex w-[88px] items-center justify-center gap-2 rounded-[17px] border border-background bg-primary/50 px-2 py-[6px] text-[0.75rem] font-light text-primary-light hover:bg-primary/60"

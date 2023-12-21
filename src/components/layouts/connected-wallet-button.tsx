@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
+import { shortenAddress } from '@/lib/utils';
 
 type DropdownProps = {
   onClick: () => void;
@@ -16,7 +17,7 @@ export default function ConnectedWalletButton({ onClick, address }: DropdownProp
           'flex items-center gap-2 rounded-3xl border border-black p-2 text-[0.875rem]/[1.25rem] font-medium text-primary'
         }
       >
-        {address}
+        {shortenAddress(address)}
         <SVGIcon />
       </Menu.Button>
       <Transition
