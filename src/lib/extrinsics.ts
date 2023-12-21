@@ -1,12 +1,13 @@
-import { ApiPromise, WsProvider } from '@polkadot/api';
-import { web3FromAddress, web3Enable } from '@polkadot/extension-dapp';
-
-const wsProvider = new WsProvider(
-  'wss://fraa-flashbox-2036-rpc.a.stagenet.tanssi.network'
-);
-const apiPromise = ApiPromise.create({ provider: wsProvider });
+// import { ApiPromise, WsProvider } from '@polkadot/api';
+// import { web3FromAddress, web3Enable } from '@polkadot/extension-dapp';
 
 export async function listProject(senderAddress: string, projectDetails: any) {
+  const { ApiPromise, WsProvider } = await import('@polkadot/api');
+  const { web3Enable, web3FromAddress } = await import('@polkadot/extension-dapp');
+  const wsProvider = new WsProvider(
+    'wss://fraa-flashbox-2036-rpc.a.stagenet.tanssi.network'
+  );
+  const apiPromise = ApiPromise.create({ provider: wsProvider });
   const api = await apiPromise;
   const extensions = await web3Enable('RealXchange');
   const injector = await web3FromAddress(senderAddress);
@@ -33,6 +34,12 @@ export async function listProject(senderAddress: string, projectDetails: any) {
 }
 
 export async function buyNft(senderAddress: string, purchaseDetails: any) {
+  const { ApiPromise, WsProvider } = await import('@polkadot/api');
+  const { web3Enable, web3FromAddress } = await import('@polkadot/extension-dapp');
+  const wsProvider = new WsProvider(
+    'wss://fraa-flashbox-2036-rpc.a.stagenet.tanssi.network'
+  );
+  const apiPromise = ApiPromise.create({ provider: wsProvider });
   const api = await apiPromise;
   const extensions = await web3Enable('RealXchange');
   const injector = await web3FromAddress(senderAddress);
@@ -56,6 +63,12 @@ export async function buyNft(senderAddress: string, purchaseDetails: any) {
 }
 
 export async function voteOnMilestone(senderAddress: string, voteDetails: any) {
+  const { ApiPromise, WsProvider } = await import('@polkadot/api');
+  const { web3Enable, web3FromAddress } = await import('@polkadot/extension-dapp');
+  const wsProvider = new WsProvider(
+    'wss://fraa-flashbox-2036-rpc.a.stagenet.tanssi.network'
+  );
+  const apiPromise = ApiPromise.create({ provider: wsProvider });
   const api = await apiPromise;
   const extensions = await web3Enable('RealXchange');
   const injector = await web3FromAddress(senderAddress);
@@ -75,6 +88,12 @@ export async function voteOnMilestone(senderAddress: string, voteDetails: any) {
 }
 
 export async function bondToken(senderAddress: string, bondDetails: any) {
+  const { ApiPromise, WsProvider } = await import('@polkadot/api');
+  const { web3Enable, web3FromAddress } = await import('@polkadot/extension-dapp');
+  const wsProvider = new WsProvider(
+    'wss://fraa-flashbox-2036-rpc.a.stagenet.tanssi.network'
+  );
+  const apiPromise = ApiPromise.create({ provider: wsProvider });
   const api = await apiPromise;
   const extensions = await web3Enable('RealXchange');
   const injector = await web3FromAddress(senderAddress);

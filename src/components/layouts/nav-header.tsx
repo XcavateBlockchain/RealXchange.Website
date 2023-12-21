@@ -7,7 +7,7 @@ import MainNav from './main-nav';
 import { useState, useEffect } from 'react';
 import ConnectedWalletButton from './connected-wallet-button';
 
-import { web3Enable, web3Accounts } from '@polkadot/extension-dapp';
+// import { web3Enable, web3Accounts } from '@polkadot/extension-dapp';
 
 export default function NavHeader() {
   const [walletAddresses, setWalletAddresses] = useState<string[]>([]);
@@ -15,6 +15,7 @@ export default function NavHeader() {
   const [selectedAddress, setSelectedAddress] = useState('');
 
   const fetchWalletAddresses = async () => {
+    const { web3Enable, web3Accounts } = await import('@polkadot/extension-dapp');
     const extensions = await web3Enable('Your App Name');
     if (extensions.length === 0) {
       alert('No wallet extensions found!');
