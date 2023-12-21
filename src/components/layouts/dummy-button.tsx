@@ -13,7 +13,7 @@ import { useSporranContext } from '@/context/sporran-context';
 
 type FlowError = 'closed' | 'unauthorized' | 'unknown';
 
-export default function ConnectKilt({ onConnect }: { onConnect: (s: any) => void }) {
+export default function DummyButton({ onConnect }: { onConnect: (s: any) => void }) {
   const { kilt } = useSporranContext();
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<FlowError>();

@@ -52,9 +52,16 @@ const lengths = [
 export function CreateProjectForm() {
   const context = usePageContext();
 
-  const onCreateHandler = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    context?.setPageValues({ page: 'add-nft' });
+  const onCreateProject = (data: {
+    length: string;
+    name: string;
+    category: string;
+    location: string;
+    description: string;
+    target: string;
+  }) => {
+    // console.log(data);
+    context?.setPageValues({ page: 'add-nft', project: data });
   };
 
   const form = useZodForm({
@@ -72,7 +79,7 @@ export function CreateProjectForm() {
               <dd className="text-[1rem]/[1.5rem]">@Trillion_Treesfoundation</dd>
             </div>
           </SectionHeader>
-          <Form form={form} onSubmit={form.handleSubmit(data => console.log(data))}>
+          <Form form={form} onSubmit={form.handleSubmit(onCreateProject)}>
             <Input
               label="Project name"
               htmlFor="name"
@@ -122,7 +129,6 @@ export function CreateProjectForm() {
               type="submit"
               variant={'primary'}
               className="my-5 w-full"
-              onClick={onCreateHandler}
               disabled={form.formState.isSubmitting}
             >
               Continue

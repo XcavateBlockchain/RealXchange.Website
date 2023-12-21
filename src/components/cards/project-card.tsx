@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
 import Link from 'next/link';
 import { BaseButton } from '../ui/base-button';
@@ -16,15 +17,18 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <div className="flex h-[352px] w-[295px] flex-col items-start gap-4 rounded-lg bg-[##F3F3F3] px-2 pb-4 pt-2 shadow-feature-card">
       <Link href={`/project/${project.id}`} className="w-full space-y-3.5">
         <div className="relative">
-          <Image
+          {/* <Image
             src={project.image}
             alt={project.title}
             width={279}
             height={210}
             priority
-          />
+          /> */}
+
+          <img src={project.image} alt={project.title} className="h-[210px] w-[279px]" />
           <div className=" absolute bottom-4 right-4 flex items-center justify-center gap-2 rounded-[20px] bg-background/[0.24] px-2 py-[6px] text-[0.75rem] font-light text-primary-light/[0.64]">
             {project.category}
+            Ii
           </div>
         </div>
 
