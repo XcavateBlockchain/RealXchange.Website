@@ -1,3 +1,5 @@
+import { IconType } from '@/components/icons';
+
 export interface RootLayoutProps {
   children: React.ReactNode;
 }
@@ -12,7 +14,7 @@ export type CategoryName = 'ecology' | 'housing' | 'environment' | 'social';
 
 export interface Category {
   title: CategoryName;
-  icon: React.ReactNode;
+  icon: IconType;
 }
 
 export type ProjectCategory = {

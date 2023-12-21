@@ -48,7 +48,7 @@ export default function Footer() {
             <li>
               <Link
                 href={'/'}
-                className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+                className="text-[0.87rem]/[1.22rem] font-light underline-offset-4 hover:underline"
               >
                 Marketplace
               </Link>
@@ -56,7 +56,7 @@ export default function Footer() {
             <li>
               <Link
                 href={'/'}
-                className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+                className="text-[0.87rem]/[1.22rem] font-light underline-offset-4 hover:underline"
               >
                 Conect a wallet
               </Link>
@@ -69,7 +69,7 @@ export default function Footer() {
             <li>
               <Link
                 href={'/'}
-                className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+                className="text-[0.87rem]/[1.22rem] font-light underline-offset-4 hover:underline"
               >
                 Blog
               </Link>
@@ -77,7 +77,7 @@ export default function Footer() {
             <li>
               <Link
                 href={'/'}
-                className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+                className="text-[0.87rem]/[1.22rem] font-light underline-offset-4 hover:underline"
               >
                 FAQ&apos;s
               </Link>
@@ -85,7 +85,7 @@ export default function Footer() {
             <li>
               <Link
                 href={'/'}
-                className="text-[0.87rem]/[1.22rem] font-light hover:text-primary/60"
+                className="text-[0.87rem]/[1.22rem] font-light underline-offset-4 hover:underline"
               >
                 About Us
               </Link>
