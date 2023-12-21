@@ -4,29 +4,23 @@ import { siteImage } from '@/config/image';
 import Image from 'next/image';
 import Link from 'next/link';
 import MainNav from './main-nav';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import ConnectedWalletButton from './connected-wallet-button';
-
-import { web3Enable, web3Accounts } from '@polkadot/extension-dapp';
-import { useSporranContext } from '@/context/sporran-context';
-import ConnectKilt from './connect-kilt';
+import ConnectKiltButton from './connect-kilt-button';
+// import { web3Enable, web3Accounts } from '@polkadot/extension-dapp';
 
 export default function NavHeader() {
-  const { kilt } = useSporranContext();
   const [walletAddresses, setWalletAddresses] = useState<string[]>([]);
   const [showWalletSelector, setShowWalletSelector] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState('');
 
   const fetchWalletAddresses = async () => {
+    const { web3Enable, web3Accounts } = await import('@polkadot/extension-dapp');
     const extensions = await web3Enable('Your App Name');
     if (extensions.length === 0) {
       alert('No wallet extensions found!');
       return;
     }
-
-    extensions.push(kilt);
-
-    console.log(extensions);
 
     const accounts = await web3Accounts();
     setWalletAddresses(accounts.map(account => account.address));
@@ -79,6 +73,7 @@ export default function NavHeader() {
             onSelect={handleSelectAddress}
           />
         )}
+        <ConnectKiltButton />
       </nav>
     </header>
   );

@@ -1,6 +1,7 @@
-import { web3Enable, web3Accounts, web3FromAddress } from '@polkadot/extension-dapp';
+// import { web3Enable, web3Accounts, web3FromAddress } from '@polkadot/extension-dapp';
 
 export async function createAuthHeader(address: string) {
+  const { web3Enable, web3FromAddress } = await import('@polkadot/extension-dapp');
   await web3Enable('RealXchange');
 
   const injector = await web3FromAddress(address);
@@ -108,7 +109,7 @@ export async function uploadAndPinMultiple(authHeader: string, imageList: any[])
   }
 }
 
-function extractImageUrls(imageList: any[]): string[] {
+export function extractImageUrls(imageList: any[]): string[] {
   let urls = imageList.map(imgObj => {
     return imgObj.data[0].url;
   });
