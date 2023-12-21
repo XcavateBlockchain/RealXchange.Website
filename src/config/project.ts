@@ -4,23 +4,21 @@ import { Category, Project, ProjectCategory } from '@/types';
 export const featuredProjects = [
   {
     title: 'Let’s plant 1 million trees',
-    foundationName: '@Trillion_Treesfoundation',
     image: '/images/projects/project-one.png',
     category: 'environment'
   },
   {
     title: 'Wildlife',
-    foundationName: '@Trillion_Treesfoundation',
+
     image: '/images/projects/project-two.png',
     category: 'ecology'
   },
   {
     title: 'Save the trees',
-    foundationName: '@Trillion_Treesfoundation',
     image: '/images/projects/project-three.png',
     category: 'housing'
   }
-] satisfies Pick<Project, 'title' | 'foundationName' | 'image' | 'category'>[];
+] satisfies Pick<Project, 'title' | 'image' | 'category'>[];
 
 export const projects = [
   {
