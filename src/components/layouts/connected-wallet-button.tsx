@@ -5,9 +5,10 @@ import { siteConfig } from '@/config/site';
 
 type DropdownProps = {
   onClick: () => void;
+  address: string;
 };
 
-export default function ConnectedWalletButton({ onClick }: DropdownProps) {
+export default function ConnectedWalletButton({ onClick, address }: DropdownProps) {
   return (
     <Menu as="header" className="relative inline-block">
       <Menu.Button
@@ -15,7 +16,7 @@ export default function ConnectedWalletButton({ onClick }: DropdownProps) {
           'flex items-center gap-2 rounded-3xl border border-black p-2 text-[0.875rem]/[1.25rem] font-medium text-primary'
         }
       >
-        {'0xC501...8d9b'}
+        {address}
         <SVGIcon />
       </Menu.Button>
       <Transition
