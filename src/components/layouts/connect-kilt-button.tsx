@@ -1,5 +1,6 @@
 import { useSporranContext } from '@/context/sporran-context';
 import { exceptionToError } from '@/lib/exceptionToError';
+import { shortenAddress } from '@/lib/utils';
 import { useCallback, useState } from 'react';
 
 type FlowError = 'closed' | 'unauthorized' | 'unknown';
@@ -43,7 +44,7 @@ export default function ConnectKiltButton() {
       className="flex items-center gap-2.5 rounded-3xl bg-primary px-4 py-2 text-[0.875rem]/[1.25rem] text-primary-light duration-700 hover:bg-primary/90"
       onClick={() => handleConnect(kilt.sporran)}
     >
-      Connect wallet
+      {!user ? 'Connect wallet' : shortenAddress(user)}
     </button>
   );
 }
