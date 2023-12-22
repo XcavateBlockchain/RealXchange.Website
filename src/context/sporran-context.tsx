@@ -3,10 +3,18 @@
 import { initializeKiltExtensionAPI } from '@kiltprotocol/kilt-extension-api';
 import { createContext, useContext } from 'react';
 
+declare global {
+  interface Window {
+    kilt: any;
+  }
+}
+
 if (typeof window !== 'undefined') {
   initializeKiltExtensionAPI();
 }
-let { kilt } = typeof window !== 'undefined' ? window : {};
+// let { kilt } = typeof window !== 'undefined' ? window : {};
+let { kilt } = window || {};
+// let { kilt = {} } = typeof window !== 'undefined' ? window : {};
 
 const SporranContext = createContext<any | null>(null);
 
