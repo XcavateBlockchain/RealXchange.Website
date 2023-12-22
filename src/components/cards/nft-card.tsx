@@ -43,7 +43,7 @@ export function NftCard({ project }: NftCardProps) {
             height={504}
             priority
           /> */}
-          <img src={project.image} alt={project.title} className="h-[504px] w-[503px]" />
+          <img src={project.image} alt={project.title} className="h-[180px] w-[239px]" />
           {/* buy now button */}
           <BaseButton
             className="absolute bottom-4 right-[80px] flex w-[88px] items-center justify-center gap-2 rounded-[17px] border border-background bg-primary/50 px-2 py-[6px] text-[0.75rem] font-light text-primary-light hover:bg-primary/60"

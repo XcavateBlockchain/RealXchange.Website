@@ -1,3 +1,5 @@
+'use client';
+
 import { LargeNftCard } from '@/components/cards/large-nft-card';
 import { NftCard } from '@/components/cards/nft-card';
 import { Icons } from '@/components/icons';
