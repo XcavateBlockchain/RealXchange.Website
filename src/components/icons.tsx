@@ -11,11 +11,13 @@ import {
   Housing,
   Instagram,
   Linkedin,
+  Logout,
   Password,
   Profile,
   RemoveSquare,
   Social,
   Swap,
+  Tailsman,
   TwitterX,
   Users,
   Wallet,
@@ -47,5 +49,7 @@ export const Icons = {
   removeSquare: RemoveSquare,
   addSquare: AddSquare,
   ArrowDown,
-  ArrowUp
+  ArrowUp,
+  Tailsman,
+  Logout
 };

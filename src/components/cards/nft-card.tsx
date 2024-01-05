@@ -5,11 +5,13 @@ import Image from 'next/image';
 import { BaseButton } from '../ui/base-button';
 import { Icons } from '../icons';
 import { Project } from '@/types';
-import { formatNumber, formatPrice } from '@/lib/utils';
+import { formatNumber, formatPrice, shortenAddress } from '@/lib/utils';
 import ModalContainer from '../ui/modal-container';
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '../ui/button';
+import SubstrateContextProvider, { useSubstrateContext } from '@/context/polkadot-contex';
+import ConnectPolkadotWallet from '../layouts/connect-polkadot-wallet';
 
 interface NftCardProps {
   project: Project;
@@ -33,45 +35,51 @@ export function NftCard({ project }: NftCardProps) {
   }
 
   return (
-    <div className="flex h-full w-full flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
-      <div className="w-full space-y-3.5">
-        <div className="relative">
-          {/* <Image
+    <SubstrateContextProvider>
+      <div className="flex h-full w-full flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
+        <div className="w-full space-y-3.5">
+          <div className="relative">
+            {/* <Image
             src={project.image}
             alt={project.title}
             width={503}
             height={504}
             priority
           /> */}
-          <img src={project.image} alt={project.title} className="h-[180px] w-[239px]" />
-          {/* buy now button */}
-          <BaseButton
-            className="absolute bottom-4 right-[80px] flex w-[88px] items-center justify-center gap-2 rounded-[17px] border border-background bg-primary/50 px-2 py-[6px] text-[0.75rem] font-light text-primary-light hover:bg-primary/60"
-            onClick={openModal}
-          >
-            Buy now
-          </BaseButton>
+            <img
+              src={project.image}
+              alt={project.title}
+              className="h-[180px] w-[239px]"
+            />
+            {/* buy now button */}
+            <BaseButton
+              className="absolute bottom-4 right-[80px] flex w-[88px] items-center justify-center gap-2 rounded-[17px] border border-background bg-primary/50 px-2 py-[6px] text-[0.75rem] font-light text-primary-light hover:bg-primary/60"
+              onClick={openModal}
+            >
+              Buy now
+            </BaseButton>
+          </div>
         </div>
-      </div>
 
-      <div className="flex w-full justify-between text-[0.6rem] font-light">
-        <dl>
-          <dt className="text-foreground/[0.6]">Price</dt>
-          <dd>{formatPrice(project.price, { currency: 'USD' })}</dd>
-        </dl>
-        <dl>
-          <dt className="text-foreground/[0.6]">NFTs</dt>
-          <dd>{formatNumber(project.noOfNFTs)}</dd>
-        </dl>
+        <div className="flex w-full justify-between text-[0.6rem] font-light">
+          <dl>
+            <dt className="text-foreground/[0.6]">Price</dt>
+            <dd>{formatPrice(project.price, { currency: 'USD' })}</dd>
+          </dl>
+          <dl>
+            <dt className="text-foreground/[0.6]">NFTs</dt>
+            <dd>{formatNumber(project.noOfNFTs)}</dd>
+          </dl>
+        </div>
+        <BuyNowModal project={project} open={isOpen} close={closeModal} />
       </div>
-      <BuyNowModal project={project} open={isOpen} close={closeModal} />
-    </div>
+    </SubstrateContextProvider>
   );
 }
 
 const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
+  const { isConnected, address, disconnectWallet } = useSubstrateContext();
   const closeModalRef = useRef(null);
-
   const [value, setValue] = useState<number>(1);
 
   const incrementValue = () => {
@@ -129,9 +137,23 @@ const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
             Price for 1 NFT = {formatPrice(project?.price_per_nft || 0)}
           </p>
         </div>
-        <Button variant="primary" fullWidth>
-          Make payment
-        </Button>
+
+        {isConnected ? (
+          <Button variant="primary" fullWidth>
+            Make payment
+          </Button>
+        ) : (
+          <ConnectPolkadotWallet />
+        )}
+
+        {isConnected && (
+          <div className="justify-end">
+            <BaseButton onClick={disconnectWallet} className="flex items-center gap-1">
+              {' '}
+              <Icons.Logout className="h-6 w-6" /> {shortenAddress(address)}
+            </BaseButton>
+          </div>
+        )}
       </section>
     </ModalContainer>
   );
