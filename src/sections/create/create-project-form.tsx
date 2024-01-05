@@ -36,16 +36,16 @@ const lengths = [
     value: 3
   },
   {
-    name: '4 Month',
-    value: 4
-  },
-  {
     name: '6 Month',
     value: 6
   },
   {
     name: '9 Month',
     value: 9
+  },
+  {
+    name: '12 Month',
+    value: 12
   }
 ];
 
