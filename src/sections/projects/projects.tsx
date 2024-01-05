@@ -58,7 +58,7 @@ export async function Projects() {
       {projects &&
         projects.map(project => {
           if (project) {
-            return <ProjectCard project={project} />;
+            return <ProjectCard key={project.id} project={project} />;
           }
         })}
     </section>

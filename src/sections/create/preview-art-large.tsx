@@ -18,12 +18,16 @@ export function PreviewArtLarge({ open, close, images }: Props) {
     >
       <div className="flex w-full flex-col items-center gap-[62px]">
         <div className="flex w-full flex-wrap justify-center gap-4">
-          {images.map(url => (
-            <div className="flex flex-col items-center gap-[26px]">
-              <Image src={url!} alt="" width={261} height={261} priority />
-              {/* <BaseButton onClick={close}>Regenerate V1</BaseButton> */}
-            </div>
-          ))}
+          {images.map(url => {
+            if (url) {
+              return (
+                <div className="flex flex-col items-center gap-[26px]">
+                  <Image key={url} src={url!} alt="" width={261} height={261} priority />
+                  {/* <BaseButton onClick={close}>Regenerate V1</BaseButton> */}
+                </div>
+              );
+            }
+          })}
         </div>
       </div>
     </PreviewModalContainer>
