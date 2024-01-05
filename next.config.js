@@ -7,6 +7,5 @@ module.exports = {
         hostname: 'oaidalleapiprodscus.blob.core.windows.net'
       }
     ]
-  },
-  domains: ['oaidalleapiprodscus.blob.core.windows.net']
+  }
 };

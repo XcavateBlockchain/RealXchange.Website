@@ -1,5 +1,3 @@
-'use client';
-
 import { ProjectCard } from '@/components/cards/project-card';
 import { projects } from '@/config/project';
 import {
@@ -10,91 +8,59 @@ import {
 } from '@/lib/queries';
 import { shortenAddress } from '@/lib/utils';
 import { Project } from '@/types';
-import { useEffect, useState } from 'react';
 
-export function Projects() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [project, setProject] = useState<
-    Pick<
-      Project,
-      | 'title'
-      | 'id'
-      | 'category'
-      | 'foundationName'
-      | 'description'
-      | 'price'
-      | 'noOfNFTs'
-      | 'image'
-    >
-  >({
-    title: '',
-    id: '',
-    category: 'environment',
-    foundationName: '',
-    description: '',
-    price: '',
-    noOfNFTs: 0,
-    image: ''
-  });
+const projectIds = [26, 27, 28, 29, 30, 31];
 
-  const fetchMetadata = async () => {
-    const collectionMetadata = await getCollectionMetadata(22);
-    const itemMetadata = await getItemMetadata(22, 1);
-    const availableNFTs = await getAvailableNFTs(22);
-    const projectDetails = await getProjectDetails(22);
+export async function Projects() {
+  const fetchMetadata = async (projectId: number) => {
+    const collectionMetadata = await getCollectionMetadata(projectId);
+    const itemMetadata = await getItemMetadata(projectId, 1);
+    const availableNFTs = await getAvailableNFTs(projectId);
+    const projectDetails = await getProjectDetails(projectId);
 
     return { collectionMetadata, itemMetadata, availableNFTs, projectDetails };
   };
 
-  async function getProject() {
-    try {
-      setIsLoading(true);
-      const response: any = await fetchMetadata();
-      setIsLoading(false);
-      console.log(response);
+  async function getProjects() {
+    const results = projectIds.map(async id => {
+      try {
+        const response: any = await fetchMetadata(id);
 
-      const result = await JSON.parse(response.collectionMetadata.data);
-      const image = await JSON.parse(response.itemMetadata.data);
-      const detail = response.projectDetails;
-      console.log({ result });
-      const { data } = response.collectionMetadata;
+        const result = await JSON.parse(response.collectionMetadata.data);
+        const image = await JSON.parse(response.itemMetadata.data);
+        const detail = response.projectDetails;
 
-      setProject({
-        id: 22,
-        title: result.projectName,
-        category: 'environment',
-        description: result.description,
-        image: `https://crustipfs.mobi/ipfs/${image.cid}`,
-        price: detail.projectPrice,
-        foundationName: shortenAddress(detail.projectOwner),
-        noOfNFTs: detail.nftTypes
-      });
-    } catch (error) {
-      console.log(error);
-    }
+        const { data } = response.collectionMetadata;
+
+        const out = {
+          id: id,
+          title: result.projectName,
+          category: 'environment',
+          description: result.description,
+          image: `https://crustipfs.mobi/ipfs/${image.cid}`,
+          price: detail.projectPrice,
+          foundationName: shortenAddress(detail.projectOwner),
+          noOfNFTs: detail.nftTypes
+        } as Project;
+        return out;
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
+    return results;
   }
 
-  //   itemMetadata
-  // :
-  // data
-  // :
-  // "{\"cid\":\"QmfTTcyi8v5FbiuV4ZBhnPecQSP7AEsUYHz1opPRZgi8J9\",\"typeTotalNo\":5, \"typePrice\": 10
-
-  // "{"projectName": "The Trees", "projectDescription": "Beautiful green trees", "projectLocation": "London", "projectCategory": "Environment"}"
-  // const data: any = fetchMetadata();
-  // console.log('projects', data);
-  // console.log(JSON.parse(data.collectionMetadata.data).projectName);
-
-  useEffect(() => {
-    getProject();
-  }, []);
-
-  console.log({ project });
+  const projects = await Promise.all(await getProjects());
 
   return (
     <section className="grid grid-cols-4 gap-5">
-      {isLoading ? <p>loading...</p> : <ProjectCard project={project && project} />}
-      {/* ))} */}
+      {projects &&
+        projects.map(project => {
+          if (project) {
+            return <ProjectCard project={project} />;
+          }
+        })}
     </section>
   );
 }
