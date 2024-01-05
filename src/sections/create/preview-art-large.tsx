@@ -21,8 +21,8 @@ export function PreviewArtLarge({ open, close, images }: Props) {
           {images.map(url => {
             if (url) {
               return (
-                <div className="flex flex-col items-center gap-[26px]">
-                  <Image key={url} src={url!} alt="" width={261} height={261} priority />
+                <div key={url} className="flex flex-col items-center gap-[26px]">
+                  <Image key={url} src={url} alt="" width={261} height={261} priority />
                   {/* <BaseButton onClick={close}>Regenerate V1</BaseButton> */}
                 </div>
               );
