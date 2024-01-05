@@ -40,6 +40,7 @@ export default function ProductPage({
         )}
 
         <ProjectDescription
+          id={projectId}
           category={{
             title: project.category,
             icon: <Icon className="h-[14px] w-[18px]" />

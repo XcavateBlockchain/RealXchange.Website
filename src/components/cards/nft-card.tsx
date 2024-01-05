@@ -147,10 +147,14 @@ const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
         )}
 
         {isConnected && (
-          <div className="justify-end">
-            <BaseButton onClick={disconnectWallet} className="flex items-center gap-1">
+          <div className=" flex items-center justify-between">
+            <span></span>
+            <BaseButton
+              onClick={disconnectWallet}
+              className="broder flex items-center gap-2 rounded border-green-800 p-2 text-[0.75rem]/[1.5rem] font-light text-accent"
+            >
               {' '}
-              <Icons.Logout className="h-6 w-6" /> {shortenAddress(address)}
+              <Icons.Logout className="h-4 w-4" /> {shortenAddress(address)}
             </BaseButton>
           </div>
         )}
