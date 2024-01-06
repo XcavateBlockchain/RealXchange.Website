@@ -92,6 +92,7 @@ export default function ProductPage({
         nftData.map((nft: any, index: number) => {
           const nftParsed = JSON.parse(nft);
           return {
+            id: projectId,
             image: `https://crustipfs.mobi/ipfs/${nftParsed.cid}`,
             title: result.projectName,
             price: nftParsed.typePrice.replaceAll(',', ''),

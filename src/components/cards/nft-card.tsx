@@ -14,6 +14,7 @@ import SubstrateContextProvider, { useSubstrateContext } from '@/context/polkado
 import ConnectPolkadotWallet from '../layouts/connect-polkadot-wallet';
 import { usePathname } from 'next/navigation';
 import { getAvailableNFTsbyType } from '@/lib/queries';
+import { buyNft } from '@/lib/extrinsics';
 
 interface NftCardProps {
   project: Project;
@@ -28,7 +29,6 @@ type BuyNowModalProps = {
 
 export function NftCard({ project }: NftCardProps) {
   const projectId = usePathname().split('/')[2];
-  console.log(projectId);
   const [isOpen, setIsOpen] = useState(false);
   const [availableNFTs, setAvailableNFTS] = useState<number[]>([]);
 
@@ -161,7 +161,23 @@ const BuyNowModal = ({ project, open, close, availableNFTs }: BuyNowModalProps) 
         </div>
 
         {isConnected ? (
-          <Button variant="primary" fullWidth>
+          <Button
+            variant="primary"
+            fullWidth
+            onClick={async () => {
+              // console.log(address, {
+              //   collectionId: project.id,
+              //   nftType: project.type,
+              //   quantity: value
+              // });
+              await buyNft(address, {
+                collectionId: project.id,
+                nftType: project.type,
+                quantity: value
+              });
+              close();
+            }}
+          >
             Make payment
           </Button>
         ) : (
