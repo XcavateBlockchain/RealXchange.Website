@@ -5,14 +5,18 @@ import {
   getCollection,
   getCollectionMetadata,
   getItemMetadata,
+  getNextProjectId,
   getProjectDetails
 } from '@/lib/queries';
-import { shortenAddress } from '@/lib/utils';
+import { getIntegersBetween, shortenAddress } from '@/lib/utils';
 import { Project } from '@/types';
 
-const projectIds = [26, 27, 28, 29, 30, 31, 33, 37];
-
 export async function Projects() {
+  const projectIds = [37, 38, 39, 40, 41, 42, 43, 45];
+
+  // const latestProjectId = await getNextProjectId()
+  // getIntegersBetween(37, latestProjectId as number)
+
   const fetchMetadata = async (projectId: number) => {
     const collectionMetadata = await getCollectionMetadata(projectId);
     const itemMetadata = await getItemMetadata(projectId, 1);
