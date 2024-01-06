@@ -10,7 +10,7 @@ import {
 import { shortenAddress } from '@/lib/utils';
 import { Project } from '@/types';
 
-const projectIds = [26, 27, 28, 29, 30, 31, 33];
+const projectIds = [26, 27, 28, 29, 30, 31, 33, 37];
 
 export async function Projects() {
   const fetchMetadata = async (projectId: number) => {
@@ -41,10 +41,14 @@ export async function Projects() {
 
         const { data } = response.collectionMetadata;
 
+        /*
+          data: {projectName: Green Haven Homes,projectDescription:Green Haven Homes focuses on building sustainable, eco-friendly housing in urban areas of Nairobi. Utilizing renewable materials and solar energy, the project aims to provide affordable housing while minimizing environmental impact. Community involvement and local employment opportunities are key components, ensuring long-term sustainability and social empowerment.,projectLocation:Nairobi, Kenya,projectCategory:housing,nftMetadata:[{cid:QmRiXhsfWvWKxJBJTVqVFaUUigP3jqniaWUJD7d9PdNWvm,typeTotalNo:5,typePrice:1000},{cid:QmZyyoQ8ERZudtui2FUBCnaVidKgckcKBfozKU2QQMM2c7,typeTotalNo:5,typePrice:2000},{cid:QmP957tKu3NFGy5Jus7yfe4ZGeD7v9ywEiBBRZ4A9f9ujV,typeTotalNo:2,typePrice:2500}]}
+        */
+
         const out = {
           id: id,
           title: result.projectName,
-          category: 'environment',
+          category: detail.projectCategory,
           description: result.description,
           image: `https://crustipfs.mobi/ipfs/${image.cid}`,
           price: detail.projectPrice.replaceAll(',', ''),

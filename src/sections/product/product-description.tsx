@@ -69,12 +69,10 @@ export function ProjectDescription({ id, category }: ProjectDescriptionProps) {
       setIsLoading(true);
       const response: any = await fetchMetadata(id);
       setIsLoading(false);
-      console.log({ response });
 
       const result = await JSON.parse(response.collectionMetadata.data);
       const image = await JSON.parse(response.itemMetadata.data);
       const detail = response.projectDetails;
-      console.log({ result });
       const { data } = response.collectionMetadata;
 
       setProject({
@@ -98,8 +96,6 @@ export function ProjectDescription({ id, category }: ProjectDescriptionProps) {
   useEffect(() => {
     getProject();
   }, []);
-
-  console.log(project);
 
   const Icon = Icons[project.category ?? ''];
 

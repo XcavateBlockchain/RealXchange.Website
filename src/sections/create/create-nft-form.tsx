@@ -102,7 +102,8 @@ export function CreateNftForm() {
       projectName: context?.project.name,
       projectDescription: context?.project.description,
       projectLocation: context?.project.location,
-      projectCategory: context?.project.category
+      projectCategory: context?.project.category,
+      nftMetadata: nftMetadata
     };
     const projectData = {
       priceAndAmount: priceAndAmount,

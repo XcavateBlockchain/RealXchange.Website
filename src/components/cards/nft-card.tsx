@@ -12,6 +12,8 @@ import { toast } from 'sonner';
 import { Button } from '../ui/button';
 import SubstrateContextProvider, { useSubstrateContext } from '@/context/polkadot-contex';
 import ConnectPolkadotWallet from '../layouts/connect-polkadot-wallet';
+import { usePathname } from 'next/navigation';
+import { getAvailableNFTsbyType } from '@/lib/queries';
 
 interface NftCardProps {
   project: Project;
@@ -21,9 +23,12 @@ type BuyNowModalProps = {
   project: Project;
   open: boolean;
   close: () => void;
+  availableNFTs: number[];
 };
 
 export function NftCard({ project }: NftCardProps) {
+  const projectId = usePathname().split('/')[2];
+  console.log(projectId);
   const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -54,7 +59,16 @@ export function NftCard({ project }: NftCardProps) {
             {/* buy now button */}
             <BaseButton
               className="absolute bottom-4 right-[80px] flex w-[88px] items-center justify-center gap-2 rounded-[17px] border border-background bg-primary/50 px-2 py-[6px] text-[0.75rem] font-light text-primary-light hover:bg-primary/60"
-              onClick={openModal}
+              onClick={
+                // openModal
+                async () => {
+                  const availableNFTs = await getAvailableNFTsbyType(
+                    parseInt(projectId),
+                    project.type!
+                  );
+                  openModal();
+                }
+              }
             >
               Buy now
             </BaseButton>
@@ -71,15 +85,20 @@ export function NftCard({ project }: NftCardProps) {
             <dd>{formatNumber(project.noOfNFTs)}</dd>
           </dl>
         </div>
-        <BuyNowModal project={project} open={isOpen} close={closeModal} />
+        <BuyNowModal
+          project={project}
+          open={isOpen}
+          close={closeModal}
+          // availableNFTs={}
+        />
       </div>
     </SubstrateContextProvider>
   );
 }
 
-const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
+const BuyNowModal = ({ project, open, close, availableNFTs }: BuyNowModalProps) => {
   const { isConnected, address, disconnectWallet } = useSubstrateContext();
-  const closeModalRef = useRef(null);
+  // const closeModalRef = useRef(null);
   const [value, setValue] = useState<number>(1);
 
   const incrementValue = () => {
@@ -98,7 +117,7 @@ const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
       title={'Summary'}
       openModal={open}
       closeModal={close}
-      ref={closeModalRef}
+      // ref={closeModalRef}
     >
       <section className="flex w-full flex-col gap-[36px]">
         <div className="flex items-center gap-6 border-b border-foreground pb-[36px]">
@@ -116,7 +135,7 @@ const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
               <BaseButton className="text-accent">@{project.foundationName}</BaseButton>
             </li>
             <li>{project.title}</li>
-            <li>#56 of 100 NFTs Minted</li>
+            <li>{`1 of ${project.noOfNFTs} NFTs available`}</li>
           </ul>
         </div>
         <div className="flex items-center justify-between px-[80px]">
