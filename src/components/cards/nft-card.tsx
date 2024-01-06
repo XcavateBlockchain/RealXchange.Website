@@ -30,6 +30,7 @@ export function NftCard({ project }: NftCardProps) {
   const projectId = usePathname().split('/')[2];
   console.log(projectId);
   const [isOpen, setIsOpen] = useState(false);
+  const [availableNFTs, setAvailableNFTS] = useState<number[]>([]);
 
   function closeModal() {
     setIsOpen(false);
@@ -62,10 +63,12 @@ export function NftCard({ project }: NftCardProps) {
               onClick={
                 // openModal
                 async () => {
-                  const availableNFTs = await getAvailableNFTsbyType(
+                  const availableNFTs = (await getAvailableNFTsbyType(
                     parseInt(projectId),
                     project.type!
-                  );
+                  )) as Array<number>;
+
+                  setAvailableNFTS(availableNFTs);
                   openModal();
                 }
               }
@@ -89,7 +92,7 @@ export function NftCard({ project }: NftCardProps) {
           project={project}
           open={isOpen}
           close={closeModal}
-          // availableNFTs={}
+          availableNFTs={availableNFTs}
         />
       </div>
     </SubstrateContextProvider>
@@ -135,7 +138,7 @@ const BuyNowModal = ({ project, open, close, availableNFTs }: BuyNowModalProps) 
               <BaseButton className="text-accent">@{project.foundationName}</BaseButton>
             </li>
             <li>{project.title}</li>
-            <li>{`1 of ${project.noOfNFTs} NFTs available`}</li>
+            <li>{`${availableNFTs.length} of ${project.noOfNFTs} NFTs available`}</li>
           </ul>
         </div>
         <div className="flex items-center justify-between px-[80px]">
