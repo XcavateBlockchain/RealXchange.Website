@@ -11,7 +11,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const Icon = Icons[project.category ?? ''];
+  const Icon = Icons['housing'];
 
   return (
     <div className="flex h-[352px] w-[295px] flex-col items-start gap-4 rounded-lg bg-[##F3F3F3] px-2 pb-4 pt-2 shadow-feature-card">

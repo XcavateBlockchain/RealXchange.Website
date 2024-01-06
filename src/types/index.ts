@@ -34,4 +34,5 @@ export interface Project {
   description: string;
   currentBalance: string;
   duration: string;
+  type?: number;
 }

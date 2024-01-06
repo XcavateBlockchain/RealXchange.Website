@@ -14,7 +14,7 @@ export async function getAvailableNFTs(collectionId: number) {
 
 export async function getAvailableNFTsbyType(collectionId: number, nftType: number) {
   const api = await apiPromise;
-  const result = await api.query.communityProject.listedNftsTypes(collectionId, nftType);
+  const result = await api.query.communityProject.listedNftTypes(collectionId, nftType);
   const output = result.toHuman();
   return output; // an array of ids of the remaining NFT's for that type
 }

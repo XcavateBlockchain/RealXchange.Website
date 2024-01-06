@@ -10,7 +10,7 @@ interface LargeNftCardProps {
 
 export function LargeNftCard({ project }: LargeNftCardProps) {
   return (
-    <div className="my-[43px] inline-flex h-full w-[503px] flex-col items-start gap-7 rounded-lg bg-background px-3.5 pb-7 pt-3.5 shadow-feature-card">
+    <div className="my-auto inline-flex h-full w-[503px] flex-col items-start gap-7 rounded-lg bg-background px-3.5 pb-7 pt-3.5 shadow-feature-card">
       <div className="w-full space-y-7">
         <div className="relative">
           {/* <Image
