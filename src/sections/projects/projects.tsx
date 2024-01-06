@@ -49,7 +49,7 @@ export async function Projects() {
           id: id,
           title: result.projectName,
           category: detail.projectCategory,
-          description: result.description,
+          description: result.projectDescription,
           image: `https://crustipfs.mobi/ipfs/${image.cid}`,
           price: detail.projectPrice.replaceAll(',', ''),
           foundationName: shortenAddress(detail.projectOwner),
