@@ -40,6 +40,13 @@ export async function getItemMetadata(collectionId: number, itemId: number) {
   return output; // output.data should contain the metadata
 }
 
+export async function getNextProjectId() {
+  const api = await apiPromise;
+  const result = await api.query.nfts.nextCollectionId();
+  const output = result.toHuman();
+  return output;
+}
+
 export async function getProjectDetails(collectionId: number) {
   const api = await apiPromise;
   const result = await api.query.communityProject.ongoingProjects(collectionId);
