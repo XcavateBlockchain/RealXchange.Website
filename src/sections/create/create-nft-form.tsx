@@ -19,6 +19,7 @@ import { listProject } from '@/lib/extrinsics';
 export function CreateNftForm() {
   const context = usePageContext();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [generatedImages, setGeneratedImages] = useState<(string | undefined)[]>([]);
 
   console.log(context?.project); // get project info from context
@@ -71,6 +72,7 @@ export function CreateNftForm() {
     });
 
     setGeneratedImages(openAiUrls);
+    setIsLoading(false);
     openModal();
 
     const crustIds = await uploadAndPinMultiple(
@@ -113,6 +115,7 @@ export function CreateNftForm() {
       projectMetadata: JSON.stringify(projectMetadata)
     };
     await listProject(sender, projectData);
+    closeModal();
   };
 
   return (
@@ -191,14 +194,22 @@ export function CreateNftForm() {
               type="submit"
               className="my-5 w-full"
               // disabled={form.formState.isSubmitting}
-              onClick={openModal} // show preview modal
+              onClick={() => {
+                openModal();
+                setIsLoading(true);
+              }} // show preview modal
             >
               Generate artwork
             </Button>
           </Form>
         </section>
       ) : null}
-      <PreviewArtLarge open={isOpen} close={closeModal} images={generatedImages} />
+      <PreviewArtLarge
+        open={isOpen}
+        close={closeModal}
+        images={generatedImages}
+        loading={isLoading}
+      />
     </Fragment>
   );
 }

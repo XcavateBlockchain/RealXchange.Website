@@ -52,7 +52,7 @@ export async function Projects() {
         const out = {
           id: id,
           title: result.projectName,
-          category: detail.projectCategory,
+          category: result.projectCategory,
           description: result.projectDescription,
           image: `https://crustipfs.mobi/ipfs/${image.cid}`,
           price: detail.projectPrice.replaceAll(',', ''),
