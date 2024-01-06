@@ -111,15 +111,17 @@ export default function ProductPage({
 
   return (
     <Fragment>
-      <section className="flex w-full flex-col gap-[33px] border-b border-foreground/[0.42] px-[100px] md:flex-row">
-        {nfts &&
-          nfts.map(nft => {
-            if (nfts.length == 1) {
-              return <LargeNftCard key={nft.type} project={nft} />;
-            } else {
-              return <NftCard key={nft.type} project={nft} />;
-            }
-          })}
+      <section className="grid grid-cols-1 gap-[33px] py-5 md:grid-cols-2">
+        <div className="grid w-full grid-cols-1 gap-[33px] border-b border-foreground/[0.42] p-4 px-[100px] md:grid-cols-2 md:gap-[20px] lg:grid-cols-2 lg:gap-[33px]">
+          {nfts &&
+            nfts.map(nft => {
+              if (nfts.length == 1) {
+                return <LargeNftCard key={nft.type} project={nft} />;
+              } else {
+                return <NftCard key={nft.type} project={nft} />;
+              }
+            })}
+        </div>
         <ProjectDescription
           id={projectId}
           category={{

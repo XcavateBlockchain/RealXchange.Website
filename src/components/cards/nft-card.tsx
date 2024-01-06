@@ -42,7 +42,7 @@ export function NftCard({ project }: NftCardProps) {
 
   return (
     <SubstrateContextProvider>
-      <div className="flex h-full w-full flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
+      <div className="flex h-5/6 w-full flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
         <div className="w-full space-y-3.5">
           <div className="relative">
             {/* <Image
@@ -105,7 +105,7 @@ const BuyNowModal = ({ project, open, close, availableNFTs }: BuyNowModalProps) 
   const [value, setValue] = useState<number>(1);
 
   const incrementValue = () => {
-    if (value == project.noOfNFTs) {
+    if (value == availableNFTs.length) {
       return toast.error('You have reached available maximum unit purchase');
     }
     setValue(prev => prev + 1);
@@ -153,10 +153,10 @@ const BuyNowModal = ({ project, open, close, availableNFTs }: BuyNowModalProps) 
         <div className="flex w-full flex-col items-start gap-2">
           <dl className="flex w-full items-center justify-between text-[1rem]/[1.5rem]">
             <dt>To pay</dt>
-            <dd>{formatPrice(value * (project?.price_per_nft || 0))}</dd>
+            <dd>{formatPrice(value * (parseInt(project?.price) || 1))}</dd>
           </dl>
           <p className="text-[0.75rem]/[1.5rem] font-light">
-            Price for 1 NFT = {formatPrice(project?.price_per_nft || 0)}
+            Price for 1 NFT = {formatPrice(project?.price || 0)}
           </p>
         </div>
 
