@@ -12,6 +12,9 @@ import { toast } from 'sonner';
 import { Button } from '../ui/button';
 import SubstrateContextProvider, { useSubstrateContext } from '@/context/polkadot-contex';
 import ConnectPolkadotWallet from '../layouts/connect-polkadot-wallet';
+import { usePathname } from 'next/navigation';
+import { getAvailableNFTsbyType } from '@/lib/queries';
+import { buyNft } from '@/lib/extrinsics';
 
 interface NftCardProps {
   project: Project;
@@ -21,10 +24,13 @@ type BuyNowModalProps = {
   project: Project;
   open: boolean;
   close: () => void;
+  availableNFTs: number[];
 };
 
 export function NftCard({ project }: NftCardProps) {
+  const projectId = usePathname().split('/')[2];
   const [isOpen, setIsOpen] = useState(false);
+  const [availableNFTs, setAvailableNFTS] = useState<number[]>([]);
 
   function closeModal() {
     setIsOpen(false);
@@ -36,7 +42,7 @@ export function NftCard({ project }: NftCardProps) {
 
   return (
     <SubstrateContextProvider>
-      <div className="flex h-full w-full flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
+      <div className="flex h-5/6 w-full flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
         <div className="w-full space-y-3.5">
           <div className="relative">
             {/* <Image
@@ -54,7 +60,18 @@ export function NftCard({ project }: NftCardProps) {
             {/* buy now button */}
             <BaseButton
               className="absolute bottom-4 right-[80px] flex w-[88px] items-center justify-center gap-2 rounded-[17px] border border-background bg-primary/50 px-2 py-[6px] text-[0.75rem] font-light text-primary-light hover:bg-primary/60"
-              onClick={openModal}
+              onClick={
+                // openModal
+                async () => {
+                  const availableNFTs = (await getAvailableNFTsbyType(
+                    parseInt(projectId),
+                    project.type!
+                  )) as Array<number>;
+
+                  setAvailableNFTS(availableNFTs);
+                  openModal();
+                }
+              }
             >
               Buy now
             </BaseButton>
@@ -71,19 +88,24 @@ export function NftCard({ project }: NftCardProps) {
             <dd>{formatNumber(project.noOfNFTs)}</dd>
           </dl>
         </div>
-        <BuyNowModal project={project} open={isOpen} close={closeModal} />
+        <BuyNowModal
+          project={project}
+          open={isOpen}
+          close={closeModal}
+          availableNFTs={availableNFTs}
+        />
       </div>
     </SubstrateContextProvider>
   );
 }
 
-const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
+const BuyNowModal = ({ project, open, close, availableNFTs }: BuyNowModalProps) => {
   const { isConnected, address, disconnectWallet } = useSubstrateContext();
-  const closeModalRef = useRef(null);
+  // const closeModalRef = useRef(null);
   const [value, setValue] = useState<number>(1);
 
   const incrementValue = () => {
-    if (value == project.noOfNFTs) {
+    if (value == availableNFTs.length) {
       return toast.error('You have reached available maximum unit purchase');
     }
     setValue(prev => prev + 1);
@@ -98,7 +120,7 @@ const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
       title={'Summary'}
       openModal={open}
       closeModal={close}
-      ref={closeModalRef}
+      // ref={closeModalRef}
     >
       <section className="flex w-full flex-col gap-[36px]">
         <div className="flex items-center gap-6 border-b border-foreground pb-[36px]">
@@ -116,7 +138,7 @@ const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
               <BaseButton className="text-accent">@{project.foundationName}</BaseButton>
             </li>
             <li>{project.title}</li>
-            <li>#56 of 100 NFTs Minted</li>
+            <li>{`${availableNFTs.length} of ${project.noOfNFTs} NFTs available`}</li>
           </ul>
         </div>
         <div className="flex items-center justify-between px-[80px]">
@@ -131,15 +153,31 @@ const BuyNowModal = ({ project, open, close }: BuyNowModalProps) => {
         <div className="flex w-full flex-col items-start gap-2">
           <dl className="flex w-full items-center justify-between text-[1rem]/[1.5rem]">
             <dt>To pay</dt>
-            <dd>{formatPrice(value * (project?.price_per_nft || 0))}</dd>
+            <dd>{formatPrice(value * (parseInt(project?.price) || 1))}</dd>
           </dl>
           <p className="text-[0.75rem]/[1.5rem] font-light">
-            Price for 1 NFT = {formatPrice(project?.price_per_nft || 0)}
+            Price for 1 NFT = {formatPrice(project?.price || 0)}
           </p>
         </div>
 
         {isConnected ? (
-          <Button variant="primary" fullWidth>
+          <Button
+            variant="primary"
+            fullWidth
+            onClick={async () => {
+              // console.log(address, {
+              //   collectionId: project.id,
+              //   nftType: project.type,
+              //   quantity: value
+              // });
+              await buyNft(address, {
+                collectionId: project.id,
+                nftType: project.type,
+                quantity: value
+              });
+              close();
+            }}
+          >
             Make payment
           </Button>
         ) : (

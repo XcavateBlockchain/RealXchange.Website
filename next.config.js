@@ -5,6 +5,10 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'oaidalleapiprodscus.blob.core.windows.net'
+      },
+      {
+        protocol: 'https',
+        hostname: 'crustipfs.mobi'
       }
     ]
   }

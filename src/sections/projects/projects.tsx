@@ -2,6 +2,7 @@ import { ProjectCard } from '@/components/cards/project-card';
 import { projects } from '@/config/project';
 import {
   getAvailableNFTs,
+  getCollection,
   getCollectionMetadata,
   getItemMetadata,
   getProjectDetails
@@ -9,7 +10,7 @@ import {
 import { shortenAddress } from '@/lib/utils';
 import { Project } from '@/types';
 
-const projectIds = [26, 27, 28, 29, 30, 31];
+const projectIds = [26, 27, 28, 29, 30, 31, 33, 37];
 
 export async function Projects() {
   const fetchMetadata = async (projectId: number) => {
@@ -17,8 +18,15 @@ export async function Projects() {
     const itemMetadata = await getItemMetadata(projectId, 1);
     const availableNFTs = await getAvailableNFTs(projectId);
     const projectDetails = await getProjectDetails(projectId);
+    const baseProjectDetails = await getCollection(projectId);
 
-    return { collectionMetadata, itemMetadata, availableNFTs, projectDetails };
+    return {
+      collectionMetadata,
+      itemMetadata,
+      availableNFTs,
+      projectDetails,
+      baseProjectDetails
+    };
   };
 
   async function getProjects() {
@@ -26,21 +34,26 @@ export async function Projects() {
       try {
         const response: any = await fetchMetadata(id);
 
-        const result = await JSON.parse(response.collectionMetadata.data);
-        const image = await JSON.parse(response.itemMetadata.data);
+        const result = JSON.parse(response.collectionMetadata.data);
+        const image = JSON.parse(response.itemMetadata.data);
         const detail = response.projectDetails;
+        const numberOfNFTs = response.baseProjectDetails.items;
 
         const { data } = response.collectionMetadata;
+
+        /*
+          data: {projectName: Green Haven Homes,projectDescription:Green Haven Homes focuses on building sustainable, eco-friendly housing in urban areas of Nairobi. Utilizing renewable materials and solar energy, the project aims to provide affordable housing while minimizing environmental impact. Community involvement and local employment opportunities are key components, ensuring long-term sustainability and social empowerment.,projectLocation:Nairobi, Kenya,projectCategory:housing,nftMetadata:[{cid:QmRiXhsfWvWKxJBJTVqVFaUUigP3jqniaWUJD7d9PdNWvm,typeTotalNo:5,typePrice:1000},{cid:QmZyyoQ8ERZudtui2FUBCnaVidKgckcKBfozKU2QQMM2c7,typeTotalNo:5,typePrice:2000},{cid:QmP957tKu3NFGy5Jus7yfe4ZGeD7v9ywEiBBRZ4A9f9ujV,typeTotalNo:2,typePrice:2500}]}
+        */
 
         const out = {
           id: id,
           title: result.projectName,
-          category: 'environment',
+          category: detail.projectCategory,
           description: result.description,
           image: `https://crustipfs.mobi/ipfs/${image.cid}`,
-          price: detail.projectPrice,
+          price: detail.projectPrice.replaceAll(',', ''),
           foundationName: shortenAddress(detail.projectOwner),
-          noOfNFTs: detail.nftTypes
+          noOfNFTs: numberOfNFTs
         } as Project;
         return out;
       } catch (error) {

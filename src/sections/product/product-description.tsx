@@ -38,6 +38,8 @@ export function ProjectDescription({ id, category }: ProjectDescriptionProps) {
       | 'noOfNFTs'
       | 'image'
       | 'location'
+      | 'currentBalance'
+      | 'duration'
     >
   >({
     title: '',
@@ -48,7 +50,9 @@ export function ProjectDescription({ id, category }: ProjectDescriptionProps) {
     price: '',
     noOfNFTs: 0,
     image: '',
-    location: ''
+    location: '',
+    currentBalance: '',
+    duration: ''
   });
 
   const fetchMetadata = async (projectId: number) => {
@@ -65,16 +69,14 @@ export function ProjectDescription({ id, category }: ProjectDescriptionProps) {
       setIsLoading(true);
       const response: any = await fetchMetadata(id);
       setIsLoading(false);
-      console.log({ response });
 
       const result = await JSON.parse(response.collectionMetadata.data);
       const image = await JSON.parse(response.itemMetadata.data);
       const detail = response.projectDetails;
-      console.log({ result });
       const { data } = response.collectionMetadata;
 
       setProject({
-        id: 22,
+        id: id,
         title: result.projectName,
         category: result.projectCategory,
         description: result.projectDescription,
@@ -82,7 +84,9 @@ export function ProjectDescription({ id, category }: ProjectDescriptionProps) {
         image: `https://crustipfs.mobi/ipfs/${image.cid}`,
         price: detail.projectPrice,
         foundationName: shortenAddress(detail.projectOwner),
-        noOfNFTs: detail.nftTypes
+        noOfNFTs: detail.nftTypes,
+        currentBalance: detail.projectBalance,
+        duration: detail.duration
       });
     } catch (error) {
       console.log(error);
@@ -92,8 +96,6 @@ export function ProjectDescription({ id, category }: ProjectDescriptionProps) {
   useEffect(() => {
     getProject();
   }, []);
-
-  console.log(project);
 
   const Icon = Icons[project.category ?? ''];
 
@@ -131,9 +133,9 @@ export function ProjectDescription({ id, category }: ProjectDescriptionProps) {
         <SectionTitle size={'md'}>Funding Target</SectionTitle>
 
         <div className="flex gap-4">
-          <TargetItem title="Target:" value="$300,000" />
-          <TargetItem title="Raised:" value="$225,000" />
-          <TargetItem title="Project Duration" value="9 months " />
+          <TargetItem title="Target:" value={project.price} />
+          <TargetItem title="Raised:" value={project.currentBalance} />
+          <TargetItem title="Project Duration" value={`${project.duration} months`} />
         </div>
       </SectionHeader>
 

@@ -32,4 +32,7 @@ export interface Project {
   price_per_nft?: number;
   noOfNFTs: number;
   description: string;
+  currentBalance: string;
+  duration: string;
+  type?: number;
 }
