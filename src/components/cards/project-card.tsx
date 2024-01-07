@@ -11,7 +11,7 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const Icon = Icons['housing'];
+  const Icon = Icons[project.category];
 
   return (
     <div className="flex h-[352px] w-[295px] flex-col items-start gap-4 rounded-lg bg-[##F3F3F3] px-2 pb-4 pt-2 shadow-feature-card">
@@ -28,7 +28,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <img src={project.image} alt={project.title} className="h-[210px] w-[279px]" />
           <div className=" absolute bottom-4 right-4 flex items-center justify-center gap-2 rounded-[20px] bg-background/[0.24] px-2 py-[6px] text-[0.75rem] font-light text-primary-light/[0.64]">
             {project.category}
-            Ii
           </div>
         </div>
 

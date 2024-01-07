@@ -10,7 +10,6 @@ import Textarea from '@/components/ui/text-area';
 import { usePageContext } from '@/context/page-contex';
 import { createProjectSchema } from '@/lib/zod';
 import { Fragment } from 'react';
-import { number, object, string } from 'zod';
 
 const categories = [
   {

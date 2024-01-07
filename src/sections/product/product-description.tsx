@@ -139,7 +139,7 @@ export function ProjectDescription({ id, category }: ProjectDescriptionProps) {
         </div>
       </SectionHeader>
 
-      <Button href={`/project/${id}/activity`} variant={'primary'} className="opacity-50">
+      <Button href={`/project/${id}/activity`} variant={'primary'}>
         View project activity
       </Button>
     </aside>

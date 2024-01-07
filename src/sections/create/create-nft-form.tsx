@@ -23,6 +23,7 @@ export function CreateNftForm() {
   const router = useRouter();
   const context = usePageContext();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [generatedImages, setGeneratedImages] = useState<(string | undefined)[]>([]);
 
   console.log(context?.project); // get project info from context
@@ -77,6 +78,7 @@ export function CreateNftForm() {
     });
 
     setGeneratedImages(openAiUrls);
+    setIsLoading(false);
     openModal();
 
     const crustIds = await uploadAndPinMultiple(
@@ -119,6 +121,7 @@ export function CreateNftForm() {
       projectMetadata: JSON.stringify(projectMetadata)
     };
     await listProject(sender, projectData);
+    closeModal();
   };
 
   return (
@@ -197,7 +200,10 @@ export function CreateNftForm() {
               type="submit"
               className="my-5 w-full"
               disabled={form.formState.isSubmitting}
-              // onClick={openModal}
+              onClick={() => {
+                openModal();
+                setIsLoading(true);
+              }} // show preview modal
             >
               {form.formState.isSubmitting ? 'Generating' : 'Generate artwork'}
               {form.formState.isSubmitting && (
@@ -207,7 +213,12 @@ export function CreateNftForm() {
           </Form>
         </section>
       ) : null}
-      <PreviewArtLarge open={isOpen} close={closeModal} images={generatedImages} />
+      <PreviewArtLarge
+        open={isOpen}
+        close={closeModal}
+        images={generatedImages}
+        loading={isLoading}
+      />
     </Fragment>
   );
 }

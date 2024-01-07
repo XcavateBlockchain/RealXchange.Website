@@ -50,3 +50,9 @@ export function formatNumber(
     maximumFractionDigits: decimals
   }).format(Number(number));
 }
+
+export function* getIntegersBetween(start: number, end: number) {
+  for (let i = start; i <= end; i++) {
+    yield i;
+  }
+}
