@@ -42,7 +42,7 @@ export function NftCard({ project }: NftCardProps) {
 
   return (
     <SubstrateContextProvider>
-      <div className="flex h-fit w-full flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
+      <div className="flex h-[260px] w-[253px] flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
         <div className="w-full space-y-3.5">
           <div className="relative">
             {/* <Image
