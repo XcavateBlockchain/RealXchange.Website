@@ -37,7 +37,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         <div className="flex w-full items-start justify-between gap-[13px] border-b pb-2.5">
           <div className="flex w-[225px] flex-col items-start gap-2">
-            <h3 className="truncate text-[0.875rem] font-medium">{project.title}</h3>
+            <h3 className="text-wrap max-w-[225px] truncate text-[0.875rem] font-medium">
+              {project.title}
+            </h3>
             <BaseButton className="text-[0.75rem] font-light underline-offset-4 hover:underline">
               @{project.foundationName}
             </BaseButton>
