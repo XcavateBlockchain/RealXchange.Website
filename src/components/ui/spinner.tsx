@@ -20,7 +20,7 @@ const Spinner = () => {
         fill="none"
         strokeWidth="5"
         style={{
-          stroke: 'rgb(200 195 194)',
+          stroke: 'rgb(255, 140, 0, 1)',
           strokeLinecap: 'round',
           animation: 'dash 1.5s ease-in-out infinite'
         }}

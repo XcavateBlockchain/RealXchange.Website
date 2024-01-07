@@ -15,8 +15,12 @@ import { z } from 'zod';
 import generateImages from '@/lib/image_generation';
 import { uploadAndPinMultiple } from '@/app/actions';
 import { listProject } from '@/lib/extrinsics';
+import { Icons } from '@/components/icons';
+import { getNextProjectId } from '@/lib/queries';
+import { useRouter } from 'next/navigation';
 
 export function CreateNftForm() {
+  const router = useRouter();
   const context = usePageContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,8 +28,10 @@ export function CreateNftForm() {
 
   console.log(context?.project); // get project info from context
 
-  function closeModal() {
+  async function closeModal() {
     setIsOpen(false);
+    const projectId = await getNextProjectId();
+    router.push(`/project/${projectId}`);
   }
 
   function openModal() {
@@ -193,13 +199,16 @@ export function CreateNftForm() {
             <Button
               type="submit"
               className="my-5 w-full"
-              // disabled={form.formState.isSubmitting}
+              disabled={form.formState.isSubmitting}
               onClick={() => {
                 openModal();
                 setIsLoading(true);
               }} // show preview modal
             >
-              Generate artwork
+              {form.formState.isSubmitting ? 'Generating' : 'Generate artwork'}
+              {form.formState.isSubmitting && (
+                <Icons.spin className="h-[15px] w-[15px] animate-spin stroke-primary-light" />
+              )}
             </Button>
           </Form>
         </section>

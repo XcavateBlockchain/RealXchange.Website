@@ -67,7 +67,7 @@ const ActivityDescriptionItem = ({ title, value }: { title: string; value: strin
 );
 
 const ActivityOverviewItem = ({ label, value }: { label: string; value: string }) => (
-  <div className="shadow-activity inline-flex h-[174px] w-[229px] flex-col items-center gap-6 rounded-lg border-foreground/[0.42] py-[51px] text-[1rem]/[1.5rem] font-normal">
+  <div className="inline-flex h-[174px] w-[229px] flex-col items-center gap-6 rounded-lg border-foreground/[0.42] py-[51px] text-[1rem]/[1.5rem] font-normal shadow-activity">
     <dt>{label}</dt>
     <dd>{value}</dd>
   </div>

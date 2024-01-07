@@ -31,13 +31,64 @@ const toBase64 = (str: string) =>
 export function PreviewArtLarge({ open, close, images, loading }: Props) {
   return (
     <PreviewModalContainer
-      header={{ title: '', description: '' }}
+      header={{
+        title: 'Artwork preview',
+        description: 'Accept or edit text prompt to regenerate.'
+      }}
       openModal={open}
       closeModal={close}
     >
       <div className="flex w-full flex-col items-center gap-[62px]">
-        <div className="flex w-full flex-wrap justify-center gap-4">
-          {loading ? (
+        {/* <div className="flex w-full flex-wrap justify-center gap-4"> */}
+        {loading ? (
+          <div className="justify-center py-[150px]">
+            <Spinner />
+            <div>Generating images...</div>
+          </div>
+        ) : images.length === 1 ? (
+          images.map(url => {
+            if (url) {
+              return (
+                <div key={url} className="h-full w-full">
+                  <Image
+                    key={url}
+                    src={url}
+                    alt=""
+                    width={382}
+                    height={392}
+                    priority
+                    placeholder={`data:image/svg+xml;base64,${toBase64(
+                      shimmer(700, 475)
+                    )}`}
+                  />
+                </div>
+              );
+            }
+          })
+        ) : (
+          <div className="grid h-full w-full grid-cols-2 gap-4">
+            {images.map(url => {
+              if (url) {
+                return (
+                  // <div key={url} className="grid grid-cols-4 gap-[26px]">
+                  <Image
+                    key={url}
+                    src={url}
+                    alt=""
+                    width={261}
+                    height={261}
+                    priority
+                    placeholder={`data:image/svg+xml;base64,${toBase64(
+                      shimmer(700, 475)
+                    )}`}
+                  />
+                  // </div>
+                );
+              }
+            })}
+          </div>
+        )}
+        {/* {loading ? (
             <div className="justify-center">
               <Spinner />
               <div>Generating images...</div>
@@ -58,13 +109,13 @@ export function PreviewArtLarge({ open, close, images, loading }: Props) {
                         shimmer(700, 475)
                       )}`}
                     />
-                    {/* <BaseButton onClick={close}>Regenerate V1</BaseButton> */}
+                    <BaseButton onClick={close}>Regenerate V1</BaseButton>
                   </div>
                 );
               }
             })
-          )}
-        </div>
+          )} */}
+        {/* </div> */}
       </div>
     </PreviewModalContainer>
   );

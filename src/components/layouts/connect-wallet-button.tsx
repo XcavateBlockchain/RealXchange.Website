@@ -22,7 +22,7 @@ export default function ConnectWalletButton() {
             leaveTo="opacity-0 translate-y-1"
           >
             <Popover.Panel className="absolute left-0 top-16 z-10 w-[460px] min-w-[518px] -translate-x-1/2 transform px-4 sm:px-0">
-              <div className="shadow-connect overflow-hidden rounded-lg">
+              <div className="overflow-hidden rounded-lg shadow-connect">
                 <div className="relative inline-flex w-full flex-col items-center gap-6 bg-primary-light px-6 pb-10 pt-6">
                   <header className="flex w-full items-center justify-between">
                     <h3 className="text-[1rem]/[1.5rem] font-normal">Select Wallet</h3>
