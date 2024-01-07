@@ -32,6 +32,7 @@ export function CreateNftForm() {
     setIsOpen(false);
     const projectId = await getNextProjectId();
     router.push(`/project/${projectId}`);
+    router.prefetch(`/project/${projectId}`);
   }
 
   function openModal() {
