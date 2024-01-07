@@ -10,7 +10,7 @@ import {
   getNextProjectId,
   getProjectDetails
 } from '@/lib/queries';
-import { getIntegersBetween, shortenAddress } from '@/lib/utils';
+import { getProjectIds, shortenAddress } from '@/lib/utils';
 import { Project } from '@/types';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -19,8 +19,8 @@ export function Projects() {
   const [projects, setProjects] = useState<(Project | undefined)[]>([]);
   const projectIds = [37, 38, 39, 40, 41, 42, 43, 45];
 
-  // const latestProjectId = await getNextProjectId()
-  // getIntegersBetween(37, latestProjectId as number)
+  // const latestProjectId = await getNextProjectId();
+  // const projectIds = getProjectIds(37, (latestProjectId as number) - 1);
 
   const fetchMetadata = async (projectId: number) => {
     const collectionMetadata = await getCollectionMetadata(projectId);

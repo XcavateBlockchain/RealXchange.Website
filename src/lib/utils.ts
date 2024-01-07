@@ -51,8 +51,11 @@ export function formatNumber(
   }).format(Number(number));
 }
 
-export function* getIntegersBetween(start: number, end: number) {
+export function getProjectIds(start: number, end: number) {
+  const integers = [];
   for (let i = start; i <= end; i++) {
-    yield i;
+    if (i == 44) continue;
+    integers.push(i);
   }
+  return integers;
 }
