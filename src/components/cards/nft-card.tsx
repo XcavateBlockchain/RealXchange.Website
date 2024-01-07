@@ -40,6 +40,16 @@ export function NftCard({ project }: NftCardProps) {
     setIsOpen(true);
   }
 
+  const makePaymentRequest = async () => {
+    const availableNFTs = (await getAvailableNFTsbyType(
+      parseInt(projectId),
+      project.type!
+    )) as Array<number>;
+
+    setAvailableNFTS(availableNFTs);
+    openModal();
+  };
+
   return (
     <SubstrateContextProvider>
       <div className="flex h-[260px] w-[253px] flex-col items-start gap-[13px] rounded-lg bg-background px-[6px] pb-[13px] pt-[7px] shadow-feature-card">
@@ -55,23 +65,12 @@ export function NftCard({ project }: NftCardProps) {
             <img
               src={project.image}
               alt={project.title}
-              className="h-[180px] w-[239px]"
+              className="h-[180px] w-[239px] bg-foreground/50 brightness-75"
             />
             {/* buy now button */}
             <BaseButton
               className="absolute bottom-4 right-[80px] flex w-[88px] items-center justify-center gap-2 rounded-[17px] border border-background bg-primary/50 px-2 py-[6px] text-[0.75rem] font-light text-primary-light hover:bg-primary/60"
-              onClick={
-                // openModal
-                async () => {
-                  const availableNFTs = (await getAvailableNFTsbyType(
-                    parseInt(projectId),
-                    project.type!
-                  )) as Array<number>;
-
-                  setAvailableNFTS(availableNFTs);
-                  openModal();
-                }
-              }
+              onClick={makePaymentRequest}
             >
               Buy now
             </BaseButton>
@@ -100,6 +99,7 @@ export function NftCard({ project }: NftCardProps) {
 }
 
 const BuyNowModal = ({ project, open, close, availableNFTs }: BuyNowModalProps) => {
+  const [loading, setIsLoading] = useState<boolean>(false);
   const { isConnected, address, disconnectWallet } = useSubstrateContext();
   // const closeModalRef = useRef(null);
   const [value, setValue] = useState<number>(1);
@@ -113,6 +113,22 @@ const BuyNowModal = ({ project, open, close, availableNFTs }: BuyNowModalProps) 
   const decrementValue = () => {
     if (value === 1) return;
     setValue(prev => prev - 1);
+  };
+
+  const onBuyNft = async () => {
+    // console.log(address, {
+    //   collectionId: project.id,
+    //   nftType: project.type,
+    //   quantity: value
+    // });
+    setIsLoading(true);
+    await buyNft(address, {
+      collectionId: project.id,
+      nftType: project.type,
+      quantity: value
+    });
+    setIsLoading(false);
+    close();
   };
 
   return (
@@ -129,7 +145,7 @@ const BuyNowModal = ({ project, open, close, availableNFTs }: BuyNowModalProps) 
             alt={project.title}
             width={136}
             height={89}
-            className="rounded-[6px]"
+            className="rounded-[6px] bg-foreground/50"
           />
 
           <ul className="flex flex-col gap-2 text-[0/75rem]/[1.5rem]">
@@ -161,24 +177,11 @@ const BuyNowModal = ({ project, open, close, availableNFTs }: BuyNowModalProps) 
         </div>
 
         {isConnected ? (
-          <Button
-            variant="primary"
-            fullWidth
-            onClick={async () => {
-              // console.log(address, {
-              //   collectionId: project.id,
-              //   nftType: project.type,
-              //   quantity: value
-              // });
-              await buyNft(address, {
-                collectionId: project.id,
-                nftType: project.type,
-                quantity: value
-              });
-              close();
-            }}
-          >
-            Make payment
+          <Button variant="primary" fullWidth disabled={loading} onClick={onBuyNft}>
+            {loading ? 'processing' : 'Make payment'}{' '}
+            {loading && (
+              <Icons.spin className="h-[18px] w-[18px] animate-spin stroke-background" />
+            )}
           </Button>
         ) : (
           <ConnectPolkadotWallet />

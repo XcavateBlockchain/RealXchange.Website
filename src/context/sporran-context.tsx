@@ -7,7 +7,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 
 declare global {
   interface Window {
-    kilt: any;
+    kilt?: any;
   }
 }
 

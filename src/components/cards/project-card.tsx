@@ -14,7 +14,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const Icon = Icons[project.category];
 
   return (
-    <div className="flex h-[352px] w-[295px] flex-col items-start gap-4 rounded-lg bg-[##F3F3F3] px-2 pb-4 pt-2 shadow-feature-card">
+    <div className="group flex h-[352px] w-[295px] flex-col items-start gap-4 rounded-lg bg-[#F3F3F3] px-2 pb-4 pt-2 shadow-feature-card">
       <Link href={`/project/${project.id}`} className="w-full space-y-3.5">
         <div className="relative">
           {/* <Image
@@ -25,8 +25,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
             priority
           /> */}
 
-          <img src={project.image} alt={project.title} className="h-[210px] w-[279px]" />
-          <div className=" absolute bottom-4 right-4 flex items-center justify-center gap-2 rounded-[20px] bg-background/[0.24] px-2 py-[6px] text-[0.75rem] font-light text-primary-light/[0.64]">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="h-[210px] w-[279px] bg-foreground/50 brightness-50 transition-all duration-500 group-hover:brightness-100"
+          />
+          <div className=" absolute bottom-4 right-4 flex items-center justify-center gap-2 rounded-[20px] bg-background/[0.24] px-2 py-[6px] text-[0.75rem] font-light text-primary-light/[0.64] backdrop-blur-[2px] backdrop-filter">
             {project.category}
           </div>
         </div>
