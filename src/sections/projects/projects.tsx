@@ -16,11 +16,10 @@ import { useCallback, useEffect, useState } from 'react';
 
 export function Projects() {
   const [loading, setIsLoading] = useState<boolean>(false);
+  const [newLatestId, setNewLatestId] = useState<any>();
   const [projects, setProjects] = useState<(Project | undefined)[]>([]);
-  const projectIds = [37, 38, 39, 40, 41, 42, 43, 45];
 
-  // const latestProjectId = await getNextProjectId();
-  // const projectIds = getProjectIds(37, (latestProjectId as number) - 1);
+  // const projectIds = [37, 38, 39, 40, 41, 42, 43, 45];
 
   const fetchMetadata = async (projectId: number) => {
     const collectionMetadata = await getCollectionMetadata(projectId);
@@ -38,7 +37,7 @@ export function Projects() {
     };
   };
 
-  const getProjects = useCallback(async () => {
+  const getProjects = useCallback(async (projectIds: number[]) => {
     const results = projectIds.map(async id => {
       try {
         const response: any = await fetchMetadata(id);
@@ -117,7 +116,10 @@ export function Projects() {
 
   const fetchProjects = useCallback(async () => {
     setIsLoading(true);
-    const projects = await Promise.all(await getProjects());
+    const latestProjectId = await getNextProjectId();
+    const projectIds = getProjectIds(37, (latestProjectId as number) - 1); // list of ids
+    // setNewLatestId(latestProjectId);
+    const projects = await Promise.all(await getProjects(projectIds));
     setProjects(projects);
     setIsLoading(false);
   }, [getProjects]);
@@ -125,6 +127,9 @@ export function Projects() {
   useEffect(() => {
     fetchProjects();
   }, [fetchProjects]);
+
+  console.log({ projects });
+  console.log({ newLatestId });
 
   return (
     <section className="grid grid-cols-4 gap-5">
